@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>이상 없음 — 현장 관측 기록</title>
+<style>
+:root{color-scheme:dark;--ink:#e9edf2;--muted:#a6afbe;--line:#343f4b;--panel:#1b222b;--lime:#d3f783}
+*{box-sizing:border-box}body{margin:0;background:#10151c;color:var(--ink);font:16px/1.65 system-ui,sans-serif}button,input,a{font:inherit}button{cursor:pointer}a{color:var(--lime)}header{border-bottom:1px solid var(--line)}.bar,main,footer{max-width:1140px;margin:auto;padding:18px 24px}.bar{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-weight:800;letter-spacing:.12em}.pill,.mono,small{font-family:ui-monospace,monospace}.pill{font-size:12px;border:1px solid var(--line);padding:4px 9px;color:var(--lime);border-radius:99px;white-space:nowrap}h1,h2,h3,p{margin:0}h1{font-size:clamp(40px,8vw,88px);letter-spacing:-.09em;line-height:1.02;margin:10px 0 16px}h2{font-size:23px;letter-spacing:-.045em}h3{font-size:17px}.muted,small{color:var(--muted)}.hero{padding:26px 0}.kicker{font-size:12px;letter-spacing:.13em;color:var(--lime)}.grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:20px;align-items:start}.panel{border:1px solid var(--line);background:var(--panel);border-radius:12px;overflow:hidden}.section{padding:16px 18px}.row{display:flex;align-items:center;justify-content:space-between;gap:12px}.views{display:flex;gap:8px;margin-top:12px}.views button,.ghost{border:1px solid var(--line);background:#111820;color:var(--ink);border-radius:6px;padding:7px 13px}.views button[aria-pressed=true]{background:var(--lime);color:#172015;border-color:var(--lime);font-weight:800}.scene{display:block;width:100%;aspect-ratio:16/9;background:#111820}.scene svg{display:block;width:100%;height:100%}.primary{background:var(--lime);border:0;color:#172015;padding:9px 15px;border-radius:6px;font-weight:800;white-space:nowrap}.primary:disabled{cursor:default;opacity:.45}form{display:grid;gap:8px;margin-top:13px}input{width:100%;padding:9px 12px;color:var(--ink);background:#111820;border:1px solid var(--line);border-radius:6px}.entry{border-top:1px solid var(--line);padding:15px 18px}.entry .scene{margin-top:9px;border-radius:7px;overflow:hidden}.entry p{margin-top:8px;overflow-wrap:anywhere}.reaction{color:#c0dcf2;background:#212e3d;border-left:2px solid #82a9d2;padding:7px 9px;font-size:13px}.reaction strong{color:#a9cdef}footer{font-size:13px;color:var(--muted)}.wall .grid{display:block}.wall #station{display:none}.wall #entries{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}.wall h1{font-size:52px}@media(max-width:740px){.grid{grid-template-columns:1fr}.bar,main,footer{padding-left:15px;padding-right:15px}.row{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<header><div class="bar"><div class="brand">현장 관측 기록</div><span class="pill">● 전시 데모 / CASE 01</span></div></header>
+<main>
+<section class="hero"><div class="kicker mono">CASE 01 / 국소 강우</div><h1>이상 없음</h1><p class="muted">한 골목에 비가 내린다. 세 관측기는 같은 골목의 서로 다른 부분을 보여준다.</p></section>
+<div class="grid">
+<section class="panel" id="station">
+<div class="section"><h2>관측기</h2><p class="muted">시점을 고르고 셔터를 눌러 장면을 남기세요.</p><div class="views" id="views" aria-label="관측 위치"></div></div>
+<div class="scene" id="live"></div>
+<div class="section">
+<div class="row"><small id="capture-status" role="status">촬영한 장면이 없습니다.</small><button class="ghost" id="capture">◉ 셔터</button></div>
+<form id="compose"><label for="report">한 줄 목격담</label><input id="report" maxlength="100" placeholder="무엇을 보았거나 느꼈나요?" required><div class="row"><small id="count">0 / 100</small><button class="primary" id="publish" disabled>피드에 게시</button></div></form>
+</div></section>
+<section class="panel"><div class="section row"><div><h2>현장 피드</h2><small id="total"></small></div><a id="wall-link" href="?wall=1" target="_blank" rel="noopener">벽면 보기 ↗</a></div><div id="entries" aria-live="polite"></div></section>
+</div>
+</main>
+<footer>전시 제안용 프로토타입 · 게시물은 이 브라우저에 저장됩니다. 시스템 반응은 시연용 문장입니다.</footer>
+<script>
+const views=[
+ {id:'A',name:'빗물의 경계',sky:'#384c52',cloth:'265,85 390,98 413,247 250,230',highlight:'M256 181 Q337 150 408 174',cx:315},
+ {id:'B',name:'젖은 흰 천',sky:'#2b4048',cloth:'196,31 444,61 469,317 171,281',highlight:'M177 205 Q327 152 458 210',cx:330},
+ {id:'C',name:'바닥의 흔적',sky:'#263842',cloth:'319,13 449,34 463,124 309,97',highlight:'M197 237 Q320 186 492 241',cx:375}
+];
+const seed=[
+ {id:'s2',view:'B',text:'흰 천에 남은 얼룩이 빗물 자국인지, 원래 있던 흔적인지 모르겠다.',demo:true},
+ {id:'s1',view:'A',text:'골목 양쪽은 마른 채인데 가운데만 계속 젖어 있다.',demo:true}
+];
+const key='no-anomaly-records-v1';
+let active=views[0], capture=null, reports=read();
+const $=s=>document.querySelector(s);
+function read(){try{return JSON.parse(localStorage.getItem(key)||'[]')}catch{return []}}
+function scene(view){
+ const drops=Array.from({length:44},(_,i)=>{const x=175+(i*71)%296,y=(i*49)%342;return '<path d="M'+x+' '+y+' l-8 27" opacity="'+(.16+(i%5)*.08)+'"/>'}).join('');
+ return '<svg viewBox="0 0 640 360" role="img" aria-label="관측기 '+view.id+' · '+view.name+'"><rect width="640" height="360" fill="'+view.sky+'"/><path d="M0 0H174L255 166L190 360H0Z" fill="#1c242b"/><path d="M640 0H496L398 165L470 360H640Z" fill="#202832"/><path d="M244 157H401L640 360H0Z" fill="#37434a"/><path d="M0 94L182 128M0 180L213 179M640 94L473 128M640 180L435 178" stroke="#5b6873" opacity=".5" stroke-width="2"/><ellipse cx="'+view.cx+'" cy="267" rx="129" ry="36" fill="#26363d"/><path d="M93 319Q319 266 540 319" stroke="#637d87" fill="none" opacity=".6"/><polygon points="'+view.cloth+'" fill="#c0c6bc"/><path d="'+view.highlight+'" stroke="#535a56" stroke-width="11" fill="none" opacity=".46"/><g stroke="#cce4ea" stroke-width="1.2">'+drops+'</g><path d="M31 52V29H57M583 29H609V52M31 307V331H57M583 331H609V307" stroke="#d3f783" stroke-width="2" fill="none"/><text x="52" y="66" fill="#d3f783" font-size="14" font-family="monospace">OBS '+view.id+' / LIVE FRAME</text></svg>';
+}
+function renderView(){
+ $('#live').innerHTML=scene(active);
+ for(const button of $('#views').children)button.setAttribute('aria-pressed',String(button.dataset.view===active.id));
+}
+function updateForm(){
+ const input=$('#report');
+ $('#count').textContent=input.value.length+' / 100';
+ $('#publish').disabled=!capture||!input.value.trim();
+}
+function renderFeed(){
+ const rows=[...reports,...seed];
+ $('#total').textContent='기록 '+rows.length+'건';
+ const cards=rows.map((entry)=>{
+  const view=views.find(v=>v.id===entry.view);
+  const article=document.createElement('article');
+  article.className='entry';
+  const meta=document.createElement('small');
+  meta.textContent='관측기 '+view.id+' / '+view.name+' · '+(entry.demo?'예시 기록':'관객 기록');
+  const photo=document.createElement('div');photo.className='scene';photo.innerHTML=scene(view);
+  const text=document.createElement('p');text.textContent=entry.text;
+  article.append(meta,photo,text);
+  if(!entry.demo){const reply=document.createElement('p');reply.className='reaction';const badge=document.createElement('strong');badge.textContent='시연용 시스템 반응  ';reply.append(badge,'다른 관측 위치의 기록을 함께 비교해 보세요.');article.append(reply)}
+  return article;
+ });
+ $('#entries').replaceChildren(...cards);
+}
+for(const view of views){
+ const button=document.createElement('button');button.dataset.view=view.id;button.textContent=view.id+' · '+view.name;
+ button.addEventListener('click',()=>{active=view;renderView()});$('#views').append(button);
+}
+$('#capture').addEventListener('click',()=>{capture=active;$('#capture-status').textContent='관측기 '+capture.id+' 장면 촬영 완료';$('#report').focus();updateForm()});
+$('#report').addEventListener('input',updateForm);
+$('#compose').addEventListener('submit',event=>{
+ event.preventDefault();
+ const input=$('#report');const message=input.value.trim();
+ if(!capture||!message)return;
+ reports=[{id:crypto.randomUUID(),view:capture.id,text:message},...read()].slice(0,40);
+ try{localStorage.setItem(key,JSON.stringify(reports))}catch{$('#capture-status').textContent='브라우저 저장을 사용할 수 없습니다.';return}
+ input.value='';capture=null;
+ $('#capture-status').textContent='게시 완료. 현장 피드에 추가되었습니다.';
+ updateForm();renderFeed();
+});
+window.addEventListener('storage',event=>{if(event.key===key){reports=read();renderFeed()}});
+if(new URLSearchParams(location.search).has('wall')){document.body.classList.add('wall');$('#wall-link').textContent='관측 화면';$('#wall-link').href='./';$('#wall-link').removeAttribute('target')}
+renderView();renderFeed();
+</script>
+</body></html>
