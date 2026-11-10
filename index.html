@@ -72,6 +72,8 @@ h1,h2,p,figure{margin:0}
 .commentform button:disabled{visibility:hidden}
 .empty{padding:30px 10px;text-align:center;color:var(--dim)}
 .account{display:flex;align-items:center;gap:10px}
+.account-avatar{display:grid;place-items:center;color:white}
+.account-avatar svg{width:19px;height:19px}
 .account small{display:block;color:var(--dim);font-size:12px}
 .people{display:grid;gap:13px;width:min(100%,576px);margin:0 auto 16px;padding:12px 14px;border-bottom:1px solid var(--line)}
 .people .avatar{width:33px;height:33px}
@@ -142,7 +144,7 @@ textarea{width:100%;min-height:64px;resize:vertical}
  .feedheader{padding-inline:14px}
  .stories{justify-content:flex-start;gap:9px;padding:0 14px 12px}
  .story{width:74px}
- .story .pic{width:61px}
+ .story .pic{width:min(61px,100%)}
  .story strong{font-size:11px}
  .postphoto{border-radius:0;aspect-ratio:1.29}
  .wall .postphoto{aspect-ratio:16/9}
@@ -193,7 +195,7 @@ textarea{width:100%;min-height:64px;resize:vertical}
 <div id="toast" class="toast" role="status" hidden></div>
 <dialog id="story-view" class="story-view" aria-label="스토리">
 <div class="story-stage">
-<img id="story-image" alt="">
+<img id="story-image" alt="스토리 사진">
 <div class="story-top"><div class="story-progress" id="story-progress" aria-hidden="true"></div>
 <div class="story-person"><img class="avatar" id="story-avatar" alt=""><strong id="story-name"></strong><span id="story-time"></span><button id="story-close" aria-label="스토리 닫기">×</button></div></div>
 <button class="story-tap" id="story-prev" aria-label="이전 스토리">‹</button>
@@ -221,17 +223,38 @@ const views={
  C:{name:'흰 천 바로 옆',tag:'#흰천',image:'stills/c.jpg'}
 };
 const observers=[
- {view:'C',name:'cloth.under',location:'흰 천 옆'},
- {view:'A',name:'rooftop_03',location:'골목 위층'},
- {view:'B',name:'drainline',location:'골목 바닥'}
+ {view:'C',name:'cloth.under',location:'흰 천 옆',avatar:'profiles/cloth.jpg'},
+ {view:'A',name:'rooftop_03',location:'골목 위층',avatar:'profiles/rooftop.jpg'},
+ {view:'B',name:'drainline',location:'골목 바닥',avatar:'profiles/drainline.jpg'},
+ {view:'B',name:'fish.on.shelf',location:'골목 입구',avatar:'profiles/fish.jpg'}
 ];
+const [cloth,roof,drain,fish]=observers;
 const nickname='no.anomaly';
 let storyIndex=0;
 const seed=[
- {id:'seed-c',...observers[0],story:'방금 걷은 건데 다시 걸려 있다.',ago:'방금 전',text:'빨래를 걷으러 내려갔는데 천의 안쪽만 젖어 있었다. 밖에서는 아직 비가 오고 있다.',likes:12,comments:[{name:'drainline',text:'아래에서 찍은 사진에는 젖은 자국이 없어요.'},{name:'rooftop_03',text:'그 천, 어느 쪽이 안쪽이에요?'}]},
- {id:'seed-a',...observers[1],story:'빗소리가 멈춘 뒤에 찍은 사진.',ago:'3분 전',text:'창문을 열고 손을 내밀었다. 손끝 한 마디만 젖었다.',likes:21,comments:[{name:'cloth.under',text:'저는 방금까지 아무 소리도 못 들었어요.'}]},
- {id:'seed-b',...observers[2],story:'방금 이쪽 지나간 사람 있어요?',ago:'8분 전',text:'웅덩이가 골목 끝까지 차 있는데 신발은 마른 채였다.',likes:8,comments:[]}
+ {id:'seed-c',...cloth,story:'집게는 분명히 하나를 가지고 올라왔다.',storyImage:'stills/clothespin.jpg',ago:'방금 전',
+  text:'집게 하나 빠져 있길래 빨래 걷으러 내려갔는데 천 안쪽만 젖어 있었음. 만져 보고 좀 이상해서 그냥 두고 왔다.',likes:12,
+  comments:[{name:drain.name,text:'아까 밑에서 봤을 땐 천 끝이 바닥에 닿아 있었어요.'},{name:roof.name,text:'내가 본 건 난간에 걸린 쪽이었는데. 천이 두 장인가?'}]},
+ {id:'seed-fish',...fish,image:'stills/milk.jpg',imageAlt:'바나나우유 병과 영수증',story:'영수증 놓고 간 분? 계산대에 둘게요.',storyImage:'stills/milk.jpg',ago:'4분 전',
+  text:'마감하려는데 가게 앞에 이거 놓여 있었음. 우유는 치웠고 영수증만 계산대에 올려 둘게요.',likes:5,
+  comments:[{name:cloth.name,text:'저 아까 그 앞에서 집게 주웠는데 우유는 없었어요.'},{name:fish.name,text:'집게 주운 데가 가게 앞 맞아요? 여기 바닥 계속 말라 있었는데.'}]},
+ {id:'seed-a',...roof,story:'이 우산 아까도 접혀 있었나',storyImage:'stills/umbrella.jpg',ago:'9분 전',
+  text:'비 온다길래 창 열어 봄. 밖에 손 내밀었는데 손끝만 젖어서 그냥 닫았다. 파란 우산은 아까부터 저 자리에 있네.',likes:21,
+  comments:[{name:drain.name,text:'저 지나갈 땐 펴져 있었는데요. 안에 사람은 없었고.'},{name:roof.name,text:'사진 확대해 봐요. 끈까지 묶여 있음.'}]},
+ {id:'seed-patch',...drain,image:'stills/patch.jpg',imageAlt:'가로등 아래 사각형으로 젖은 아스팔트',story:'고양이는 저 선 앞에서 돌아감.',storyImage:'stills/patch.jpg',ago:'17분 전',
+  text:'퇴근길에 가로등 밑만 물이 고여 있길래 한 컷. 웅덩이인 줄 알고 피했는데 돌아보니 경계가 거의 네모였음.',likes:8,
+  comments:[{name:fish.name,text:'저기 조명이 꺼졌을 때는 바닥이 그냥 밝게 보였어요.'},{name:cloth.name,text:'저는 안쪽에서 바깥으로 물 흐르는 거 봤어요. 사진에는 그게 안 보이네요.'}]},
+ {id:'seed-pin',...cloth,image:'stills/clothespin.jpg',imageAlt:'손에 든 나무 빨래집게',ago:'31분 전',
+  text:'빨래집게 또 떨어짐. 하나 남겨 놓고 올라왔는데 이건 우리 거랑 색이 좀 다르다.',likes:7,
+  comments:[{name:roof.name,text:'방금 위에서 보니 양쪽 다 집게 있어요.'},{name:cloth.name,text:'끝에 남겨 둔 게 하나라니까 ㅋㅋ'}]},
+ {id:'seed-b',...drain,ago:'43분 전',
+  text:'이 골목 지나면 3분 아낄 수 있는데 오늘은 그냥 돌아감. 뭐가 떨어지는 소리는 계속 들리는데 맞는 데가 없었다.',likes:9,
+  comments:[{name:roof.name,text:'저는 소리는 못 들었고 창문에 물만 튀었어요.'},{name:fish.name,text:'문 열어 놓고 있었는데 딱 한 번 쏟아지는 소리 났음.'}]},
+ {id:'seed-window',...roof,image:'stills/window.jpg',imageAlt:'창 너머 난간에 걸린 흰 천',ago:'1시간 전',
+  text:'누가 난간에 천 널어놓고 갔네. 유리 김 서려서 닦고 보니 밖에 아직 비는 안 옴.',likes:14,
+  comments:[{name:cloth.name,text:'저거 어제 저녁에 걷었는데요.'},{name:drain.name,text:'이때 저는 벌써 골목에서 비 맞고 있었어요.'}]}
 ];
+const stories=observers.map(person=>seed.find(entry=>entry.name===person.name&&entry.story));
 const params=new URLSearchParams(location.search);
 const venue=params.get('venue')==='1', wall=params.has('wall');
 const assigned=Object.hasOwn(views,params.get('station'))?params.get('station'):null;
@@ -263,7 +286,7 @@ function setFilter(value,nextMode='feed'){
 function renderPeople(){
  const target='mobile-people';
  $(target).replaceChildren(...observers.map(person=>{
-  const row=make('div','account'),avatar=image(views[person.view].image,'');
+  const row=make('div','account'),avatar=image(person.avatar,'');
   avatar.className='avatar';
   const by=make('div');by.append(make('strong','',person.name),make('small','',person.location));
   const followed=following.includes(person.name),button=make('button','',followed?'팔로잉':'팔로우');
@@ -280,42 +303,44 @@ function renderPeople(){
 }
 function renderStories(){
  const all={view:'all',name:'모두'};
+ const accounts=venue?[cloth,roof,drain]:observers;
  $('stories').hidden=mode!=='feed';
- $('stories').replaceChildren(...[all,...observers].map(({view,name})=>{
-  const button=make('button','story');button.setAttribute('aria-pressed',String(filter===view));
+ $('stories').replaceChildren(...[all,...accounts].map(({view,name,avatar})=>{
+  const button=make('button','story');if(venue||view==='all')button.setAttribute('aria-pressed',String(filter===view));
+  else button.setAttribute('aria-haspopup','dialog');
   const photo=make('span','pic');
   if(view==='all'){
    const mark=make('span','all');mark.append(icon('camera'));photo.append(mark);
-  }else photo.append(image(views[view].image,''));
+  }else photo.append(image(avatar,''));
   button.append(photo,make('strong','',name));
   button.onclick=()=>{
    if(view==='all'||venue){setFilter(view);$('stories').querySelector('[aria-pressed="true"]').focus();return}
-   showStory(seed.findIndex(entry=>entry.view===view));$('story-view').showModal();
+   showStory(stories.findIndex(entry=>entry.name===name));$('story-view').showModal();
   };
   if(view!=='all'&&!venue)button.setAttribute('aria-label',name+' 스토리');
   return button;
  }));
 }
 function showStory(index){
- if(index<0||index>=seed.length){$('story-view').close();return}
+ if(index<0||index>=stories.length){$('story-view').close();return}
  storyIndex=index;
- const entry=seed[index],view=views[entry.view];
- $('story-image').src=$('story-avatar').src=view.image;
- $('story-image').alt=view.name;
+ const entry=stories[index];
+ $('story-image').src=entry.storyImage;
+ $('story-avatar').src=entry.avatar;
  $('story-name').textContent=entry.name;
  $('story-time').textContent='· '+entry.ago;
  $('story-caption').textContent=entry.story;
  $('story-prev').hidden=index===0;
- $('story-next').textContent=index===seed.length-1?'×':'›';
- $('story-next').setAttribute('aria-label',index===seed.length-1?'스토리 닫기':'다음 스토리');
- $('story-progress').replaceChildren(...seed.map((_,i)=>make('span',i<=index?'seen':'')));
+ $('story-next').textContent=index===stories.length-1?'×':'›';
+ $('story-next').setAttribute('aria-label',index===stories.length-1?'스토리 닫기':'다음 스토리');
+ $('story-progress').replaceChildren(...stories.map((_,i)=>make('span',i<=index?'seen':'')));
 }
 $('story-close').onclick=()=>$('story-view').close();
 $('story-prev').onclick=()=>showStory(storyIndex-1);
 $('story-next').onclick=()=>showStory(storyIndex+1);
 $('story-post').onclick=()=>{
  $('story-view').close();
- $(`post-${seed[storyIndex].id}`)?.scrollIntoView({block:'start'});
+ $(`post-${stories[storyIndex].id}`)?.scrollIntoView({block:'start'});
 };
 $('story-view').addEventListener('keydown',event=>{
  if(event.key==='ArrowRight')showStory(storyIndex+1);
@@ -338,7 +363,9 @@ function postCard(entry){
  const by=make('div'),handle=make('div','handle');
  handle.append(make('strong','',name),make('span','stamp','· '+(entry.ago||'방금 전')));
  by.append(handle,make('small','',entry.location||'골목'));
- const avatar=image(view.image,'');avatar.className='avatar';
+ const avatar=entry.avatar?image(entry.avatar,''):make('span','account-avatar');
+ if(!entry.avatar)avatar.append(icon('camera'));
+ avatar.classList.add('avatar');
  const options=make('details','post-options'),summary=make('summary','');
  summary.setAttribute('aria-label','게시물 옵션');summary.append(icon('more'));
  const copy=make('button','','게시물 링크 복사');
@@ -346,7 +373,7 @@ function postCard(entry){
  options.append(summary,copy);
  head.append(avatar,by,options);
  const photo=make('figure','postphoto');
- photo.append(image(entry.image||view.image,view.name));
+ photo.append(image(entry.image||view.image,entry.imageAlt||view.name));
  const body=make('div','postbody'),buttons=make('div','actions');
  const like=make('button','like'),likes=make('strong','likes');
  const likeCount=make('span','');
@@ -377,14 +404,14 @@ function postCard(entry){
  buttons.append(like,comments,share,bookmark);
  const caption=make('p','caption');caption.append(make('strong','',name),document.createTextNode(entry.text));
  body.append(buttons,likes,caption,make('p','tags',view.tag+'  #이상없음'));
- if(replies.length>1&&openedComment!==id){
+ if(replies.length>2&&openedComment!==id){
   const toggle=make('button','reply-toggle','댓글 '+replies.length+'개 모두 보기');
   toggle.onclick=comments.onclick;
   body.append(toggle);
  }
  if(replies.length){
   const list=make('div','commentlist');
-  for(const reply of (openedComment===id?replies:replies.slice(0,1))){const line=make('p');line.append(make('strong','',reply.name),document.createTextNode(reply.text));list.append(line)}
+  for(const reply of (openedComment===id?replies:replies.slice(0,2))){const line=make('p');line.append(make('strong','',reply.name),document.createTextNode(reply.text));list.append(line)}
   body.append(list);
  }
  if(!wall){
