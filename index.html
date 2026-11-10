@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#101112">
+<link rel="icon" href="brand/janhyang.svg" type="image/svg+xml">
 <title>잔향 (@no.anomaly) · 이상 없음</title>
 <style>
 :root{color-scheme:dark;--ink:#f1eef4;--dim:#b3aebc;--line:#272c32;--bg:#101112;--surface:#1a1e22;--accent:#aacced;--blue:#b5d5f1}
@@ -19,7 +20,11 @@ h1,h2,p,figure{margin:0}
 .muted{color:var(--dim)}
 .rail{position:fixed;inset:0 auto 0 0;width:64px;padding:28px 9px 17px;display:flex;flex-direction:column;align-items:center;background:var(--bg);z-index:2}
 .brand{display:flex;align-items:center;gap:9px;font-size:24px;font-weight:900;letter-spacing:-.085em;width:max-content}
-.brand svg{width:25px;height:25px}
+.brand-icon{display:block;width:30px;height:30px}
+.feed-identity h1{display:flex;align-items:center;gap:9px}
+.feed-identity h1 .brand-icon{width:.9em;height:.9em}
+.story .all .brand-icon{width:42%;height:auto}
+.account-avatar .brand-icon{width:100%;height:100%}
 .rail .brand{padding:8px}
 .rail .brand span{display:none}
 .nav{display:grid;gap:18px;margin-top:clamp(15px,20vh,210px);margin-bottom:auto}
@@ -28,7 +33,7 @@ h1,h2,p,figure{margin:0}
 .nav button:hover,.railfoot a:hover{background:var(--surface)}
 .nav .selected{background:#23262c}
 .nav .selected svg{stroke-width:2.4}
-.nav #home.selected svg{fill:currentColor}
+
 .nav .label,.railfoot .label{display:none}
 .mobilebar{display:none}
 .shell{padding:30px 24px 64px}
@@ -56,9 +61,6 @@ body:not(.wall){background-color:#08090b}
 .story .pic{position:relative;display:grid;place-items:center;width:100%;height:100%;border-radius:50%;overflow:hidden;background:#222b35}
 .story .pic::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;border:1px solid color-mix(in srgb,var(--rim),transparent 27%);box-shadow:inset 0 0 21px 5px color-mix(in srgb,var(--rim),transparent 24%),inset 4px 6px 18px #ffffff6c;background:linear-gradient(150deg,#f6efda29,transparent 42%,#0709139e)}
 .story img,.story .all{width:100%;height:100%;border-radius:50%;object-fit:cover;display:grid;place-items:center;background:#171b20;color:white}
-.story img{filter:blur(5px) saturate(.8) contrast(1.13);transform:scale(1.12)}
-.story:hover img,.story:focus-visible img{filter:blur(2px) saturate(.85)}
-.story .all svg{width:29px;height:29px}
 .entries{display:grid;gap:21px;width:min(calc(100% - 24px),600px);margin-inline:auto}
 .post{min-width:0;border-bottom:1px solid var(--line);padding-bottom:13px;scroll-margin-top:22px}
 .posthead{display:flex;align-items:center;gap:9px;padding:7px 9px 11px}
@@ -69,23 +71,16 @@ body:not(.wall){background-color:#08090b}
 .stamp{color:var(--dim);font-size:12px;white-space:nowrap}
 .postphoto{position:relative;isolation:isolate;background:#191620;aspect-ratio:4/5;overflow:hidden;border-radius:21px}
 .postphoto img{width:100%;height:100%;object-fit:cover;display:block}
-.postphoto.gap-view::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 3% 88%,#f1394954,transparent 36%),radial-gradient(ellipse at 98% 5%,#95c8ff5c,transparent 42%);mix-blend-mode:screen}
-#post-seed-a .postphoto.gap-view::after{background:radial-gradient(circle,#b6d9ff45 0 1px,transparent 1.3px) 0 0 / 6px 6px,radial-gradient(ellipse at 97% 13%,#88a9e47a,transparent 43%);mask-image:linear-gradient(245deg,#000 0%,transparent 46%)}
-
-.postphoto.is-veiled{border-radius:24px}.postphoto.is-veiled img{filter:blur(21px) saturate(.65) brightness(.78);transform:scale(1.11)}
-.photo-veil{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:11px;width:100%;color:#fff;background:radial-gradient(ellipse at 52% 40%,#19232b18,#111820a8 85%);box-shadow:inset 0 0 26px #387caf9c,inset 0 0 3px #92c2f09c;text-shadow:0 1px 10px #10161c;padding:18px}
-.photo-veil:focus-visible{outline-offset:-5px}
-.photo-veil svg{width:36px;height:36px;stroke-width:1.4}
-.photo-veil strong{font-size:clamp(18px,4vw,26px);letter-spacing:-.04em}
-.photo-veil span{border:1px solid #9ac8ef8c;border-radius:99px;padding:7px 18px;font-size:12px;background:#31577766;box-shadow:inset 0 0 10px #589ace59}
-.photo-veil:hover span{background:#ffffff24}
-
+.pointer-haze{position:fixed;inset:0;pointer-events:none;z-index:4;overflow:hidden}
+.pointer-haze span{position:absolute;top:0;left:0;width:100px;height:100px;border-radius:50%;opacity:0;background:#bbc9df30;backdrop-filter:blur(15px);mask-image:radial-gradient(circle,#000 15%,#000b 39%,transparent 71%)}
+@media(prefers-reduced-motion:reduce),(hover:none){.pointer-haze{display:none}}
 .postbody{padding:7px 9px 0}
 .actions{display:flex;gap:14px;align-items:center;margin-bottom:3px}
 .actions button{padding:4px 0;display:flex;align-items:center}
 .actions button:hover{color:var(--dim)}
 .actions .like[aria-pressed=true]{color:#f16691}
-.actions button[aria-pressed=true] svg{fill:currentColor}
+.actions button[aria-pressed=true] svg{stroke-width:2.6}
+.actions .bookmark[aria-pressed=true]{color:var(--accent)}
 .actions .bookmark{margin-left:auto}
 .likes{display:block;margin-bottom:4px}
 .caption,.commentlist{word-break:keep-all;overflow-wrap:anywhere}
@@ -100,7 +95,6 @@ body:not(.wall){background-color:#08090b}
 .empty{padding:30px 10px;text-align:center;color:var(--dim)}
 .account{display:flex;align-items:center;gap:10px}
 .account-avatar{display:grid;place-items:center;color:white}
-.account-avatar svg{width:19px;height:19px}
 .account small{display:block;color:var(--dim);font-size:12px}
 .people{display:grid;gap:13px;width:min(100%,576px);margin:0 auto 16px;padding:12px 14px;border-bottom:1px solid var(--line)}
 .people .avatar{width:33px;height:33px}
@@ -189,36 +183,34 @@ textarea{width:100%;min-height:64px;resize:vertical}
 <body>
 <template id="icons">
 <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true">
- <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V21h-6v-6H9v6H3z"/></symbol>
- <symbol id="i-plus" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 7v10M7 12h10"/></symbol>
+ <symbol id="i-home" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M4 10h16M10 10v10" fill="none"/></symbol>
+ <symbol id="i-compose" viewBox="0 0 24 24"><path d="M13 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-7M11 13l.8-3.5L18 3.3l2.7 2.7-6.2 6.2-3.5.8Z"/></symbol>
  <symbol id="i-wall" viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="13" rx="2"/><path d="M12 17v4m-4 0h8"/></symbol>
- <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.7 5.9a4.8 4.8 0 0 0-6.8 0L12 7.8l-1.9-1.9a4.8 4.8 0 0 0-6.8 6.8l8.7 8.4 8.7-8.4a4.8 4.8 0 0 0 0-6.8z"/></symbol>
- <symbol id="i-comment" viewBox="0 0 24 24"><path d="M20.8 11.8a8.8 8.8 0 0 1-12.5 8l-5 1.2 1.1-4.6a8.8 8.8 0 1 1 16.4-4.6z"/></symbol>
- <symbol id="i-camera" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
- <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7ZM11 13 22 2"/></symbol>
- <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4V3Z"/></symbol>
+ <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M2 12h5l3-7 4 14 3-7h5"/></symbol>
+ <symbol id="i-comment" viewBox="0 0 24 24"><path d="M5 5h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-7l-5 3v-3H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2ZM8 11h8"/></symbol>
+ <symbol id="i-link" viewBox="0 0 24 24"><path d="m9 15 6-6m-5-2 2.8-2.8a4 4 0 0 1 5.7 5.7L16 12.4m-2 4.6-2.8 2.8a4 4 0 0 1-5.7-5.7L8 11.6"/></symbol>
+ <symbol id="i-save" viewBox="0 0 24 24"><path d="M4 9h16v10H4zM3 5h18v4H3zm7 8h4"/></symbol>
  <symbol id="i-people" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20v-2a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v2m1-15a3 3 0 0 1 0 6m2 3a4 4 0 0 1 3 4v2"/></symbol>
- <symbol id="i-veiled" viewBox="0 0 24 24"><path d="M2 12s3.6-5.6 10-5.6S22 12 22 12s-3.6 5.6-10 5.6S2 12 2 12Zm18-9L4 21"/><circle cx="12" cy="12" r="3.1"/></symbol>
  <symbol id="i-more" viewBox="0 0 24 24"><g stroke="none" fill="currentColor"><circle cx="5" cy="12" r="1.65"/><circle cx="12" cy="12" r="1.65"/><circle cx="19" cy="12" r="1.65"/></g></symbol>
 </svg>
 </template>
 <header class="mobilebar">
-<a class="brand" href="./"><svg aria-hidden="true"><use href="#i-camera"/></svg><span>잔향</span></a>
+<a class="brand" href="./" aria-label="잔향 홈"><img class="brand-icon" src="brand/janhyang.svg" alt=""><span>잔향</span></a>
 <a href="?wall=1" id="wall-mobile" aria-label="벽면 피드"><svg aria-hidden="true"><use href="#i-wall"/></svg></a>
 </header>
 <nav class="rail" aria-label="주 메뉴">
-<a class="brand" href="./"><svg aria-hidden="true"><use href="#i-camera"/></svg><span>잔향</span></a>
+<a class="brand" href="./" aria-label="잔향 홈"><img class="brand-icon" src="brand/janhyang.svg" alt=""><span>잔향</span></a>
 <div class="nav">
 <button id="home" class="selected" aria-label="홈"><svg aria-hidden="true"><use href="#i-home"/></svg><span class="label">홈</span></button>
-<button id="open-compose" aria-label="새 게시물"><svg aria-hidden="true"><use href="#i-plus"/></svg><span class="label">새 게시물</span></button>
-<button id="saved-nav" aria-label="저장됨"><svg aria-hidden="true"><use href="#i-bookmark"/></svg><span class="label">저장됨</span></button>
+<button id="open-compose" aria-label="새 게시물"><svg aria-hidden="true"><use href="#i-compose"/></svg><span class="label">새 게시물</span></button>
+<button id="saved-nav" aria-label="저장됨"><svg aria-hidden="true"><use href="#i-save"/></svg><span class="label">저장됨</span></button>
 <button id="following-tab" aria-label="팔로잉" aria-pressed="false"><svg aria-hidden="true"><use href="#i-people"/></svg></button>
 </div>
 <div class="railfoot"><a id="wall-link" href="?wall=1" target="_blank" rel="noopener" aria-label="벽면 피드"><svg aria-hidden="true"><use href="#i-wall"/></svg></a></div>
 </nav>
 <main class="shell"><div class="layout">
 <section class="stream" aria-label="잔향 피드">
-<div class="feed-identity"><div><small>같은 밤, 다른 장면</small><h1>잔향</h1></div><span>@no.anomaly</span></div>
+<div class="feed-identity"><div><small>같은 밤, 다른 장면</small><h1><img class="brand-icon" src="brand/janhyang.svg" alt="">잔향</h1></div><span>@no.anomaly</span></div>
 <header class="feedheader">
 <span class="toolbar-title" id="view-title"></span>
 </header>
@@ -266,7 +258,6 @@ const observers=[
 const [cloth,roof,drain,fish]=observers;
 const nickname='no.anomaly';
 let storyIndex=0;
-const revealedPhotos=new Set();
 const seed=[
  {id:'seed-c',...cloth,gapView:true,tag:'#가로등아래',image:'stills/alley-rain.jpg',imageAlt:'벽 틈 너머 가로등 아래로 쏟아지는 빗줄기',story:'사진 찍고 집게를 주머니에 넣었는데, 현관 앞에 또 하나 떨어지는 소리가 났다.',storyImage:'stills/clothespin.jpg',ago:'방금 전',
   text:'집에 들어가려다 벽 사이로 찍음. 가로등 아래만 저렇게 쏟아지는데 발밑은 말라 있었어.',likes:12,
@@ -286,7 +277,7 @@ const seed=[
  {id:'seed-b',...drain,tag:'#접힌우산',image:'stills/umbrella.jpg',imageAlt:'골목 입구에 세워진 접힌 파란 우산',ago:'43분 전',
   text:'이 골목 지나면 3분 아낄 수 있는데 오늘은 그냥 돌아감. 뭐가 떨어지는 소리는 계속 들리는데 맞는 데가 없었다.',likes:9,
   comments:[{name:roof.name,text:'저는 소리는 못 들었고 창문에 물만 튀었어요.'},{name:fish.name,text:'문 열어 놓고 있었는데 딱 한 번 쏟아지는 소리 났음. 문 닫고 나니까 한 번 더 들렸어요.'}]},
- {id:'seed-window',...roof,veiled:true,image:'stills/window.jpg',imageAlt:'창 너머 난간에 걸린 흰 천',ago:'1시간 전',
+ {id:'seed-window',...roof,image:'stills/window.jpg',imageAlt:'창 너머 난간에 걸린 흰 천',ago:'1시간 전',
   text:'누가 난간에 천 널어놓고 갔네. 유리 김 서려서 닦고 보니 밖에 아직 비는 안 옴.',likes:14,
   comments:[{name:cloth.name,text:'저거 어제 저녁에 걷었는데요.'},{name:drain.name,text:'이때 저는 벌써 골목에서 비 맞고 있었어요.'}]}
 ];
@@ -302,6 +293,7 @@ let filter='all',mode='feed',selected=assigned||'A',capture=null,inboxKey='',bus
 function save(key,value){try{localStorage.setItem(key,JSON.stringify(value));return true}catch{return false}}
 function make(tag,cls,text){const node=document.createElement(tag);if(cls)node.className=cls;if(text!==undefined)node.textContent=text;return node}
 function image(url,alt){const node=new Image();node.src=url;node.alt=alt;return node}
+function brandIcon(){const mark=image('brand/janhyang.svg','');mark.className='brand-icon';return mark}
 function icon(id){const node=document.createElementNS('http://www.w3.org/2000/svg','svg');node.setAttribute('aria-hidden','true');const use=document.createElementNS(node.namespaceURI,'use');use.setAttribute('href','#i-'+id);node.append(use);return node}
 function notify(message){
  $('toast').textContent=message;
@@ -346,7 +338,7 @@ function renderStories(){
   else button.setAttribute('aria-haspopup','dialog');
   const photo=make('span','pic');
   if(view==='all'){
-   const mark=make('span','all');mark.append(icon('camera'));photo.append(mark);
+   const mark=make('span','all');mark.append(brandIcon());photo.append(mark);
   }else photo.append(image(avatar,''));
   button.append(photo,make('strong','',name));
   button.onclick=()=>{
@@ -400,7 +392,7 @@ function postCard(entry){
  handle.append(make('strong','',name),make('span','stamp','· '+(entry.ago||'방금 전')));
  by.append(handle,make('small','',entry.location||'골목'));
  const avatar=entry.avatar?image(entry.avatar,''):make('span','account-avatar');
- if(!entry.avatar)avatar.append(icon('camera'));
+ if(!entry.avatar)avatar.append(brandIcon());
  avatar.classList.add('avatar');
  const options=make('details','post-options'),summary=make('summary','');
  summary.setAttribute('aria-label','게시물 옵션');summary.append(icon('more'));
@@ -411,25 +403,10 @@ function postCard(entry){
  const photo=make('figure',entry.gapView?'postphoto gap-view':'postphoto');
  const postImage=image(entry.image||view.image,entry.imageAlt||view.name);
  photo.append(postImage);
- if(entry.veiled&&!wall&&!revealedPhotos.has(id)){
-  photo.classList.add('is-veiled');
-  postImage.setAttribute('aria-hidden','true');
-  const reveal=make('button','photo-veil');
-  reveal.type='button';
-  reveal.append(icon('veiled'),make('strong','','사진 일부가 가려져 있습니다'),make('span','','사진 보기'));
-  reveal.onclick=()=>{
-   revealedPhotos.add(id);
-   photo.classList.remove('is-veiled');
-   postImage.removeAttribute('aria-hidden');
-   reveal.remove();
-   photo.tabIndex=-1;photo.focus({preventScroll:true});
-  };
-  photo.append(reveal);
- }
  const body=make('div','postbody'),buttons=make('div','actions');
  const like=make('button','like'),likes=make('strong','likes');
  const likeCount=make('span','');
- like.append(icon('heart'),likeCount);like.setAttribute('aria-label','좋아요');
+ like.append(icon('pulse'),likeCount);like.setAttribute('aria-label','좋아요');
  function updateLike(){
   like.setAttribute('aria-pressed',String(Boolean(state.liked)));
   const count=(entry.likes||0)+(state.liked?1:0);
@@ -441,8 +418,8 @@ function postCard(entry){
  if(!wall)photo.ondblclick=event=>{if(event.target===postImage&&!state.liked)like.click()};
  const replies=[...(entry.comments||[]),...(state.comments||[])];
  const comments=make('button','');comments.append(icon('comment'));comments.setAttribute('aria-label','댓글');comments.setAttribute('aria-expanded',String(openedComment===id));
- const share=make('button','');share.append(icon('send'));share.setAttribute('aria-label','게시물 링크 복사');share.onclick=()=>sharePost(id);
- const bookmark=make('button','bookmark');bookmark.append(icon('bookmark'));bookmark.setAttribute('aria-label','게시물 저장');bookmark.setAttribute('aria-pressed',String(Boolean(state.saved)));
+ const share=make('button','');share.append(icon('link'));share.setAttribute('aria-label','게시물 링크 복사');share.onclick=()=>sharePost(id);
+ const bookmark=make('button','bookmark');bookmark.append(icon('save'));bookmark.setAttribute('aria-label','게시물 저장');bookmark.setAttribute('aria-pressed',String(Boolean(state.saved)));
  bookmark.onclick=()=>{
   state.saved=!state.saved;actions[id]=state;save(actionKey,actions);
   bookmark.setAttribute('aria-pressed',String(state.saved));
@@ -573,7 +550,27 @@ if(venue){
 }else{pickView(selected)}
 if(wall){document.body.classList.add('wall');$('view-title').textContent='잔향 · 현장 피드'}
 window.addEventListener('storage',event=>{if(!venue&&event.key===postKey){reports=load(postKey,[]);renderFeed()}});
-renderPeople();renderStories();renderFeed();
+function installPointerHaze(){
+ const enabled=matchMedia('(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)');
+ if(wall||!enabled.matches)return;
+ const layer=make('div','pointer-haze');
+ layer.setAttribute('aria-hidden','true');
+ const stamps=Array.from({length:8},()=>make('span',''));
+ layer.append(...stamps);document.body.append(layer);
+ let index=0,lastX,lastY,lastTime=0;
+ window.addEventListener('pointermove',event=>{
+  if(event.pointerType!=='mouse'||!enabled.matches)return;
+  const {clientX:x,clientY:y,timeStamp:now}=event;
+  if(now-lastTime<35||Math.hypot(x-lastX,y-lastY)<13)return;
+  lastX=x;lastY=y;lastTime=now;
+  const stamp=stamps[index];
+  index=(index+1)%stamps.length;
+  for(const animation of stamp.getAnimations())animation.cancel();
+  stamp.style.transform=`translate3d(${x-50}px,${y-50}px,0)`;
+  stamp.animate([{opacity:.78},{opacity:0}],{duration:285,easing:'ease-out'});
+ },{passive:true});
+}
+renderPeople();renderStories();renderFeed();installPointerHaze();
 if(!wall){window.addEventListener('hashchange',showLinkedPost);window.addEventListener('load',showLinkedPost)}
 </script>
 </body>
