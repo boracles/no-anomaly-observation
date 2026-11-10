@@ -164,6 +164,7 @@ textarea{width:100%;min-height:64px;resize:vertical}
  .story .pic{width:min(61px,100%)}
  .story strong{font-size:11px}
  .postphoto{border-radius:0;aspect-ratio:1.29}
+ .postphoto.gap-view{aspect-ratio:1}
  .wall .postphoto{aspect-ratio:16/9}
  .toast{bottom:62px}
  .wall .shell{padding-inline:12px}
@@ -251,15 +252,15 @@ const nickname='no.anomaly';
 let storyIndex=0;
 const revealedPhotos=new Set();
 const seed=[
- {id:'seed-c',...cloth,veiled:true,story:'사진 찍고 집게를 주머니에 넣었는데, 현관 앞에 또 하나 떨어지는 소리가 났다.',storyImage:'stills/clothespin.jpg',ago:'방금 전',
-  text:'집게 하나 빠져 있길래 빨래 걷으러 내려갔는데 천 안쪽만 젖어 있었음. 만져 보고 좀 이상해서 그냥 두고 왔다.',likes:12,
-  comments:[{name:drain.name,text:'아까 밑에서 봤을 땐 천 끝이 바닥에 닿아 있었어요.'},{name:roof.name,text:'내가 본 건 난간에 걸린 쪽이었는데. 천이 두 장인가?'}]},
+ {id:'seed-c',...cloth,gapView:true,image:'stills/alley-gap.jpg',imageAlt:'벽 틈 너머 흰 천 위로 보이는 빗줄기',story:'사진 찍고 집게를 주머니에 넣었는데, 현관 앞에 또 하나 떨어지는 소리가 났다.',storyImage:'stills/clothespin.jpg',ago:'방금 전',
+  text:'빨래 걷으러 내려갔다가 벽 사이로 찍음. 골목 안쪽은 저렇게 쏟아지는데 내가 서 있는 쪽은 바닥도 말라 있었어.',likes:12,
+  comments:[{name:drain.name,text:'반대편 틈에선 천은 안 보이고 가로등 밑에 비만 보였어요.'},{name:roof.name,text:'위에서 보니까 빗줄기가 천 뒤쪽에서 끊겼어요. 같은 데 맞죠?'}]},
  {id:'seed-fish',...fish,image:'stills/milk.jpg',imageAlt:'바나나우유 병과 영수증',story:'영수증 놓고 간 분? 계산대에 둘게요.',storyImage:'stills/milk.jpg',ago:'4분 전',
   text:'마감하려는데 가게 앞에 이거 놓여 있었음. 우유는 치웠고 영수증만 계산대에 올려 둘게요.',likes:5,
   comments:[{name:cloth.name,text:'저 아까 그 앞에서 집게 주웠는데 우유는 없었어요.'},{name:fish.name,text:'집게 주운 데가 가게 앞 맞아요? 여기 바닥 계속 말라 있었는데.'}]},
- {id:'seed-a',...roof,story:'이 우산 아까도 접혀 있었나',storyImage:'stills/umbrella.jpg',ago:'9분 전',
-  text:'비 온다길래 창 열어 봄. 밖에 손 내밀었는데 손끝만 젖어서 그냥 닫았다. 파란 우산은 아까부터 저 자리에 있네.',likes:21,
-  comments:[{name:drain.name,text:'저 지나갈 땐 펴져 있었는데요. 안에 사람은 없었고.'},{name:roof.name,text:'사진 확대해 봐요. 끈까지 묶여 있음.'}]},
+ {id:'seed-a',...roof,gapView:true,image:'stills/curtain-gap.jpg',imageAlt:'위층 창문 커튼 틈 사이로 내려다본 흰 천과 빗줄기',story:'이 우산 아까도 접혀 있었나',storyImage:'stills/umbrella.jpg',ago:'9분 전',
+  text:'커튼 조금 벌리고 아래 찍었어요. 이쪽 창문은 마른데 가로등 건너편만 비가 쏟아짐. 창문 닫아도 소리는 그대로네.',likes:21,
+  comments:[{name:drain.name,text:'저 밑에 있을 땐 창문 쪽에도 빗줄기가 보였어요.'},{name:roof.name,text:'유리에 맺힌 건 닦아 봤는데 바깥쪽이 아니라 방 안쪽이었어요.'}]},
  {id:'seed-patch',...drain,image:'stills/patch.jpg',imageAlt:'가로등 아래 사각형으로 젖은 아스팔트',story:'고양이는 저 선 앞에서 돌아감.',storyImage:'stills/patch.jpg',ago:'17분 전',
   text:'퇴근길에 가로등 밑만 물이 고여 있길래 한 컷. 웅덩이인 줄 알고 피했는데 돌아보니 경계가 거의 네모였음.',likes:8,
   comments:[{name:fish.name,text:'저기 조명 아까 꺼졌어요. 근데 물에 비친 건 한참 켜져 있더라고요.'},{name:cloth.name,text:'저는 안쪽에서 바깥으로 물 흐르는 거 봤어요. 사진에는 그게 안 보이네요.'}]},
@@ -269,7 +270,7 @@ const seed=[
  {id:'seed-b',...drain,ago:'43분 전',
   text:'이 골목 지나면 3분 아낄 수 있는데 오늘은 그냥 돌아감. 뭐가 떨어지는 소리는 계속 들리는데 맞는 데가 없었다.',likes:9,
   comments:[{name:roof.name,text:'저는 소리는 못 들었고 창문에 물만 튀었어요.'},{name:fish.name,text:'문 열어 놓고 있었는데 딱 한 번 쏟아지는 소리 났음. 문 닫고 나니까 한 번 더 들렸어요.'}]},
- {id:'seed-window',...roof,image:'stills/window.jpg',imageAlt:'창 너머 난간에 걸린 흰 천',ago:'1시간 전',
+ {id:'seed-window',...roof,veiled:true,image:'stills/window.jpg',imageAlt:'창 너머 난간에 걸린 흰 천',ago:'1시간 전',
   text:'누가 난간에 천 널어놓고 갔네. 유리 김 서려서 닦고 보니 밖에 아직 비는 안 옴.',likes:14,
   comments:[{name:cloth.name,text:'저거 어제 저녁에 걷었는데요.'},{name:drain.name,text:'이때 저는 벌써 골목에서 비 맞고 있었어요.'}]}
 ];
@@ -391,7 +392,7 @@ function postCard(entry){
  copy.onclick=()=>{options.open=false;sharePost(id)};
  options.append(summary,copy);
  head.append(avatar,by,options);
- const photo=make('figure','postphoto');
+ const photo=make('figure',entry.gapView?'postphoto gap-view':'postphoto');
  const postImage=image(entry.image||view.image,entry.imageAlt||view.name);
  photo.append(postImage);
  if(entry.veiled&&!wall&&!revealedPhotos.has(id)){
