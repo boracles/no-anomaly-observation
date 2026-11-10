@@ -4,13 +4,29 @@
     <filter id="refraction" x="-12%" y="-60%" width="124%" height="220%">
       <feTurbulence type="fractalNoise" baseFrequency=".019 .044" numOctaves="1" seed="7" result="ripples"/>
       <feDisplacementMap in="SourceGraphic" in2="ripples" scale="24" xChannelSelector="R" yChannelSelector="G"/>
-      <feGaussianBlur stdDeviation=".35"/>
+      <feGaussianBlur stdDeviation=".65"/>
     </filter>
     <g id="letters" filter="url(#refraction)">
       <text x="9" y="37" textLength="239" lengthAdjust="spacingAndGlyphs"
           font-family="Avenir Next, Avenir, Trebuchet MS, sans-serif"
-          font-size="53" font-weight="650" font-style="italic" letter-spacing="-2.4">offframe</text>
+          font-size="53" font-weight="600" font-style="italic" letter-spacing="-2.4">offframe</text>
     </g>
+    <radialGradient id="wash">
+      <stop stop-color="#fff"/>
+      <stop offset=".48" stop-color="#fff" stop-opacity=".92"/>
+      <stop offset="1" stop-color="#fff" stop-opacity=".47"/>
+    </radialGradient>
+    <linearGradient id="paper" x2="0" y2="1">
+      <stop stop-color="#fff" stop-opacity=".54"/>
+      <stop offset=".46" stop-color="#fff" stop-opacity=".83"/>
+      <stop offset="1" stop-color="#fff" stop-opacity=".39"/>
+    </linearGradient>
+    <mask id="ink-density" maskUnits="userSpaceOnUse" x="-14" y="-16" width="287" height="72" style="mask-type:alpha">
+      <rect x="-14" y="-16" width="287" height="72" fill="url(#paper)"/>
+      <ellipse cx="33" cy="25" rx="39" ry="16" fill="url(#wash)"/>
+      <ellipse cx="119" cy="11" rx="48" ry="17" fill="url(#wash)"/>
+      <ellipse cx="209" cy="26" rx="49" ry="13" fill="url(#wash)"/>
+    </mask>
   </defs>
-  <use href="#letters" fill="#edf0f3"/>
+  <use href="#letters" fill="#edf0f3" mask="url(#ink-density)"/>
 </svg>
