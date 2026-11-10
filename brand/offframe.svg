@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 259 40">
+  <title>OFFFRAME</title>
+  <g fill="#f0f1f3">
+    <path fill-rule="evenodd" d="M10 3h20l7 7v20l-7 7H10l-7-7V10zm4 8-3 3v12l3 3h12l3-3V14l-3-3z"/>
+    <path d="M43 3h24v8H51v6h13v7H51v13h-8zm29 0h24v8H80v6h13v7H80v13h-8zm29 0h24v8h-16v6h13v7h-13v13h-8z"/>
+    <path fill-rule="evenodd" d="M130 3h24l6 6v10l-5 5 7 13h-9l-7-12h-8v12h-8zm8 8v7h12l2-2v-3l-2-2zM175 3h11l12 34h-9l-2-7h-13l-2 7h-9zm5.5 9-4 11h8z"/>
+    <path d="M201 3h8l10 15 10-15h8v34h-8V17l-10 14-10-14v20h-8zm41 0h17v7h-10v6h9v7h-9v7h10v7h-17z"/>
+  </g>
+</svg>

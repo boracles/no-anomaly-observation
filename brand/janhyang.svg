@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-  <title>잔향</title>
-  <rect width="48" height="48" rx="12" fill="#151b23"/>
-  <path d="M10 16h10l6 16h12M10 23h6l6 16h12" fill="none" stroke="#b9d8ed" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M25 9h8l5 13" fill="none" stroke="#e2edf3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="30" cy="21" r="2.4" fill="#f09b84"/>
-</svg>
