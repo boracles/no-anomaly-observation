@@ -2,8 +2,8 @@
   <title>OFFFRAME</title>
   <defs>
     <radialGradient id="light" cx="58%" cy="33%" r="64%">
-      <stop stop-color="#728fff" stop-opacity=".82"/>
-      <stop offset=".46" stop-color="#355fe6" stop-opacity=".56"/>
+      <stop stop-color="#7fe7ff" stop-opacity=".82"/>
+      <stop offset=".46" stop-color="#2364ed" stop-opacity=".56"/>
       <stop offset="1" stop-color="#102453" stop-opacity="0"/>
     </radialGradient>
     <filter id="echo" x="-15%" y="-90%" width="130%" height="280%">
@@ -20,6 +20,6 @@
     </g>
   </defs>
   <ellipse cx="135" cy="20" rx="139" ry="35" fill="url(#light)"/>
-  <use href="#letters" fill="#6485ff" opacity=".9" transform="translate(0 2)" filter="url(#echo)"/>
+  <use href="#letters" fill="#5bbdff" opacity=".9" transform="translate(0 2)" filter="url(#echo)"/>
   <use href="#letters" fill="#edf0ff" filter="url(#soft-edge)"/>
 </svg>
