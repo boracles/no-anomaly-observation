@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <title>offframe</title>
+  <defs>
+    <linearGradient id="orbit" x1="9" y1="8" x2="36" y2="41" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8bd7ce" stop-opacity="0"/>
+      <stop offset=".37" stop-color="#8bd7ce" stop-opacity=".58"/>
+      <stop offset=".65" stop-color="#a1beff"/>
+      <stop offset=".85" stop-color="#9c8bea" stop-opacity=".82"/>
+      <stop offset="1" stop-color="#6d65ab" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="diffusion" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="2.15"/>
+    </filter>
+  </defs>
+  <g fill="none" stroke="url(#orbit)" stroke-linecap="round">
+    <path d="M25 5.5C14 5.5 6 14.5 6.4 25s8.3 17.8 18.2 17.1c10.4-.8 17.5-8.9 17.4-18" stroke-width="7" opacity=".68" filter="url(#diffusion)"/>
+    <path d="M25 5.5C14 5.5 6 14.5 6.4 25s8.3 17.8 18.2 17.1c10.4-.8 17.5-8.9 17.4-18" stroke-width="2.7"/>
+    <path d="M9.8 29.2c2.2 6.6 8.7 11 15.8 9.9 5-.7 8.8-3.4 11.3-7.1" stroke-width="1.1" opacity=".67"/>
+  </g>
+</svg>

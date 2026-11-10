@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
-  <title>OFFFRAME</title>
-  <rect width="40" height="40" rx="8" fill="#0b0d11"/>
-  <path fill="#f0f1f3" fill-rule="evenodd" d="M10 3h20l7 7v20l-7 7H10l-7-7V10zm4 8-3 3v12l3 3h12l3-3V14l-3-3z"/>
-  <path fill="#b5d5f1" d="m22 30 7-7h8v7l-7 7v-7z"/>
-</svg>
