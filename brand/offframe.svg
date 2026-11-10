@@ -27,6 +27,12 @@
       <ellipse cx="119" cy="11" rx="48" ry="17" fill="url(#wash)"/>
       <ellipse cx="209" cy="26" rx="49" ry="13" fill="url(#wash)"/>
     </mask>
+    <linearGradient id="ink" x1="0" y1=".7" x2="1" y2=".3">
+      <stop stop-color="#bdc9fd"/>
+      <stop offset=".32" stop-color="#e7dcfa"/>
+      <stop offset=".65" stop-color="#dceee1"/>
+      <stop offset="1" stop-color="#adbdf9"/>
+    </linearGradient>
   </defs>
-  <use href="#letters" fill="#edf0f3" mask="url(#ink-density)"/>
+  <use href="#letters" fill="url(#ink)" mask="url(#ink-density)"/>
 </svg>
