@@ -2,9 +2,10 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101014">
 <title>잔향 (@no.anomaly) · 이상 없음</title>
 <style>
-:root{color-scheme:light;--ink:#171717;--dim:#626262;--line:#dedddc;--bg:#fff;--accent:#a72a59;--blue:#2459ad}
+:root{color-scheme:dark;--ink:#f1eef4;--dim:#b3aebc;--line:#302b38;--bg:#101014;--surface:#1c1922;--accent:#d8b2ec;--blue:#b5c7ff}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
@@ -24,7 +25,7 @@ h1,h2,p,figure{margin:0}
 .nav{display:grid;gap:18px;margin-top:clamp(15px,20vh,210px);margin-bottom:auto}
 .nav svg,.railfoot svg{width:26px;height:26px}
 .nav button,.railfoot a{display:grid;place-items:center;width:46px;height:46px;border-radius:8px}
-.nav button:hover,.railfoot a:hover{background:#f4f4f4}
+.nav button:hover,.railfoot a:hover{background:var(--surface)}
 .nav .selected svg{stroke-width:2.4}
 .nav #home.selected svg{fill:currentColor}
 .nav .label,.railfoot .label{display:none}
@@ -40,8 +41,9 @@ h1,h2,p,figure{margin:0}
 .stories{display:flex;justify-content:center;gap:clamp(14px,3vw,26px);padding:0 0 36px}
 .story{display:grid;justify-items:center;gap:6px;width:106px;min-width:0;padding:0}
 .story strong{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;font-weight:500}
-.story .pic{display:grid;place-items:center;width:100%;aspect-ratio:1;border-radius:50%;padding:3px;background:linear-gradient(32deg,#ffbd18 4%,#fa254a 46%,#db00be 89%)}
-.story img,.story .all{width:100%;height:100%;border:3px solid white;border-radius:50%;object-fit:cover;display:grid;place-items:center;background:#191620;color:white}
+.story .pic{display:grid;place-items:center;width:100%;aspect-ratio:1;border-radius:50%;padding:3px;background:linear-gradient(32deg,#b9cdbd 4%,#8a83bb 38%,#c491bf 76%,#d1aac2 96%)}
+.story img,.story .all{width:100%;height:100%;border:3px solid var(--bg);border-radius:50%;object-fit:cover;display:grid;place-items:center;background:#191620;color:white}
+.story[aria-pressed=true] .pic{background:var(--line)}
 .story .all svg{width:27px;height:27px}
 .entries{display:grid;gap:13px;width:min(100%,576px);margin-inline:auto}
 .post{min-width:0;border-bottom:1px solid var(--line);padding-bottom:9px;scroll-margin-top:65px}
@@ -57,13 +59,13 @@ h1,h2,p,figure{margin:0}
 .actions{display:flex;gap:14px;align-items:center;margin-bottom:3px}
 .actions button{padding:4px 0;display:flex;align-items:center}
 .actions button:hover{color:var(--dim)}
-.actions .like[aria-pressed=true]{color:#dc3055}
+.actions .like[aria-pressed=true]{color:#f16691}
 .actions button[aria-pressed=true] svg{fill:currentColor}
 .actions .bookmark{margin-left:auto}
 .likes{display:block;margin-bottom:4px}
 .caption,.commentlist{word-break:keep-all;overflow-wrap:anywhere}
 .caption strong,.commentlist strong{margin-right:6px}
-.tags{color:#314a78;margin-top:3px;font-size:13px}
+.tags{color:#adbaf0;margin-top:3px;font-size:13px}
 .commentlist{display:grid;gap:3px;margin-top:4px;font-size:13px}
 .reply-toggle{color:var(--dim);padding:6px 0 0;text-align:left;font-size:13px}
 .commentform{display:flex;gap:9px;margin-top:8px}
@@ -83,7 +85,7 @@ h1,h2,p,figure{margin:0}
 .post-options summary{display:grid;place-items:center;cursor:pointer;list-style:none;padding:5px}
 .post-options summary::-webkit-details-marker{display:none}
 .post-options{position:relative}
-.post-options button{position:absolute;z-index:1;right:0;width:max-content;background:white;border:1px solid var(--line);border-radius:8px;box-shadow:0 2px 8px #0002;padding:8px 12px}
+.post-options button{position:absolute;z-index:1;right:0;width:max-content;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:0 2px 8px #0002;padding:8px 12px}
 .actions .like{gap:5px}
 .actions .like span{color:var(--ink);font-size:13px;font-weight:700}
 .wall .likes{display:block}
@@ -121,12 +123,13 @@ dialog::backdrop{background:#0009}
 .dialogbody{padding:15px;display:grid;gap:10px}
 .choice,.inbox{display:flex;gap:6px;overflow:auto}
 .choice button[aria-pressed=true],.inbox button[aria-pressed=true]{border-color:var(--accent);color:var(--accent)}
-.preview{background:#f5f4f4;aspect-ratio:16/9;display:grid;place-items:center;text-align:center;color:var(--dim);overflow:hidden;border-radius:6px}
+.preview{background:var(--surface);aspect-ratio:16/9;display:grid;place-items:center;text-align:center;color:var(--dim);overflow:hidden;border-radius:6px}
 .preview img,.inbox img{width:100%;height:100%;object-fit:cover;display:block}
 .inbox button{border:1px solid var(--line);padding:3px;flex:0 0 85px;aspect-ratio:16/9;border-radius:5px}
 textarea,input,.ghost{color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:7px 10px}
+input::placeholder,textarea::placeholder{color:var(--dim);opacity:1}
 textarea{width:100%;min-height:64px;resize:vertical}
-.primary{border-radius:7px;padding:7px 17px;background:var(--blue);color:white;font-weight:750}
+.primary{border-radius:7px;padding:7px 17px;background:var(--blue);color:#151927;font-weight:750}
 .formend{display:flex;justify-content:space-between;align-items:center}
 @media(min-width:901px){body:not(.wall) .layout{position:relative;left:-14px}}
 @media(max-height:640px){.nav{margin-top:auto;gap:5px}}
@@ -232,7 +235,7 @@ const [cloth,roof,drain,fish]=observers;
 const nickname='no.anomaly';
 let storyIndex=0;
 const seed=[
- {id:'seed-c',...cloth,story:'집게는 분명히 하나를 가지고 올라왔다.',storyImage:'stills/clothespin.jpg',ago:'방금 전',
+ {id:'seed-c',...cloth,story:'사진 찍고 집게를 주머니에 넣었는데, 현관 앞에 또 하나 떨어지는 소리가 났다.',storyImage:'stills/clothespin.jpg',ago:'방금 전',
   text:'집게 하나 빠져 있길래 빨래 걷으러 내려갔는데 천 안쪽만 젖어 있었음. 만져 보고 좀 이상해서 그냥 두고 왔다.',likes:12,
   comments:[{name:drain.name,text:'아까 밑에서 봤을 땐 천 끝이 바닥에 닿아 있었어요.'},{name:roof.name,text:'내가 본 건 난간에 걸린 쪽이었는데. 천이 두 장인가?'}]},
  {id:'seed-fish',...fish,image:'stills/milk.jpg',imageAlt:'바나나우유 병과 영수증',story:'영수증 놓고 간 분? 계산대에 둘게요.',storyImage:'stills/milk.jpg',ago:'4분 전',
@@ -243,13 +246,13 @@ const seed=[
   comments:[{name:drain.name,text:'저 지나갈 땐 펴져 있었는데요. 안에 사람은 없었고.'},{name:roof.name,text:'사진 확대해 봐요. 끈까지 묶여 있음.'}]},
  {id:'seed-patch',...drain,image:'stills/patch.jpg',imageAlt:'가로등 아래 사각형으로 젖은 아스팔트',story:'고양이는 저 선 앞에서 돌아감.',storyImage:'stills/patch.jpg',ago:'17분 전',
   text:'퇴근길에 가로등 밑만 물이 고여 있길래 한 컷. 웅덩이인 줄 알고 피했는데 돌아보니 경계가 거의 네모였음.',likes:8,
-  comments:[{name:fish.name,text:'저기 조명이 꺼졌을 때는 바닥이 그냥 밝게 보였어요.'},{name:cloth.name,text:'저는 안쪽에서 바깥으로 물 흐르는 거 봤어요. 사진에는 그게 안 보이네요.'}]},
+  comments:[{name:fish.name,text:'저기 조명 아까 꺼졌어요. 근데 물에 비친 건 한참 켜져 있더라고요.'},{name:cloth.name,text:'저는 안쪽에서 바깥으로 물 흐르는 거 봤어요. 사진에는 그게 안 보이네요.'}]},
  {id:'seed-pin',...cloth,image:'stills/clothespin.jpg',imageAlt:'손에 든 나무 빨래집게',ago:'31분 전',
   text:'빨래집게 또 떨어짐. 하나 남겨 놓고 올라왔는데 이건 우리 거랑 색이 좀 다르다.',likes:7,
   comments:[{name:roof.name,text:'방금 위에서 보니 양쪽 다 집게 있어요.'},{name:cloth.name,text:'끝에 남겨 둔 게 하나라니까 ㅋㅋ'}]},
  {id:'seed-b',...drain,ago:'43분 전',
   text:'이 골목 지나면 3분 아낄 수 있는데 오늘은 그냥 돌아감. 뭐가 떨어지는 소리는 계속 들리는데 맞는 데가 없었다.',likes:9,
-  comments:[{name:roof.name,text:'저는 소리는 못 들었고 창문에 물만 튀었어요.'},{name:fish.name,text:'문 열어 놓고 있었는데 딱 한 번 쏟아지는 소리 났음.'}]},
+  comments:[{name:roof.name,text:'저는 소리는 못 들었고 창문에 물만 튀었어요.'},{name:fish.name,text:'문 열어 놓고 있었는데 딱 한 번 쏟아지는 소리 났음. 문 닫고 나니까 한 번 더 들렸어요.'}]},
  {id:'seed-window',...roof,image:'stills/window.jpg',imageAlt:'창 너머 난간에 걸린 흰 천',ago:'1시간 전',
   text:'누가 난간에 천 널어놓고 갔네. 유리 김 서려서 닦고 보니 밖에 아직 비는 안 옴.',likes:14,
   comments:[{name:cloth.name,text:'저거 어제 저녁에 걷었는데요.'},{name:drain.name,text:'이때 저는 벌써 골목에서 비 맞고 있었어요.'}]}
