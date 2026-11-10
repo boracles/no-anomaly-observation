@@ -1,14 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-14 -16 287 72">
   <title>OFFFRAME</title>
   <defs>
-    <radialGradient id="light" cx="58%" cy="33%" r="64%">
-      <stop stop-color="#7fe7ff" stop-opacity=".82"/>
-      <stop offset=".46" stop-color="#2364ed" stop-opacity=".56"/>
-      <stop offset="1" stop-color="#102453" stop-opacity="0"/>
-    </radialGradient>
-    <filter id="echo" x="-15%" y="-90%" width="130%" height="280%">
-      <feGaussianBlur stdDeviation="4.4"/>
-    </filter>
     <filter id="refraction" x="-12%" y="-60%" width="124%" height="220%">
       <feTurbulence type="fractalNoise" baseFrequency=".019 .044" numOctaves="1" seed="7" result="ripples"/>
       <feDisplacementMap in="SourceGraphic" in2="ripples" scale="24" xChannelSelector="R" yChannelSelector="G"/>
@@ -20,7 +12,5 @@
           font-size="53" font-weight="650" font-style="italic" letter-spacing="-2.4">offframe</text>
     </g>
   </defs>
-  <ellipse cx="135" cy="20" rx="139" ry="35" fill="url(#light)"/>
-  <use href="#letters" fill="#5bbdff" opacity=".72" transform="translate(1 2)" filter="url(#echo)"/>
-  <use href="#letters" fill="#edf0ff"/>
+  <use href="#letters" fill="#edf0f3"/>
 </svg>
