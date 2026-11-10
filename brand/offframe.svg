@@ -2,9 +2,9 @@
   <title>OFFFRAME</title>
   <defs>
     <filter id="refraction" x="-12%" y="-60%" width="124%" height="220%">
-      <feTurbulence type="fractalNoise" baseFrequency=".019 .044" numOctaves="1" seed="7" result="ripples"/>
-      <feDisplacementMap in="SourceGraphic" in2="ripples" scale="24" xChannelSelector="R" yChannelSelector="G"/>
-      <feGaussianBlur stdDeviation=".65"/>
+      <feTurbulence type="fractalNoise" baseFrequency=".011 .024" numOctaves="1" seed="7" result="ripples"/>
+      <feDisplacementMap in="SourceGraphic" in2="ripples" scale="22" xChannelSelector="R" yChannelSelector="G"/>
+      <feGaussianBlur stdDeviation="1.1"/>
     </filter>
     <g id="letters" filter="url(#refraction)">
       <text x="9" y="37" textLength="239" lengthAdjust="spacingAndGlyphs"
