@@ -2,10 +2,10 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#101014">
+<meta name="theme-color" content="#101112">
 <title>잔향 (@no.anomaly) · 이상 없음</title>
 <style>
-:root{color-scheme:dark;--ink:#f1eef4;--dim:#b3aebc;--line:#302b38;--bg:#101014;--surface:#1c1922;--accent:#d8b2ec;--blue:#b5c7ff}
+:root{color-scheme:dark;--ink:#f1eef4;--dim:#b3aebc;--line:#272c32;--bg:#101112;--surface:#1a1e22;--accent:#aacced;--blue:#b5d5f1}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
@@ -38,12 +38,18 @@ h1,h2,p,figure{margin:0}
 .toolbar-title{font-weight:700}
 .toolbar-title:empty{display:none}
 .toolbar-title{font-size:12px;color:var(--dim)}
-.stories{display:flex;justify-content:center;gap:clamp(14px,3vw,26px);padding:0 0 36px}
+.stories{background:radial-gradient(ellipse at 50% 18%,#a4b8c112 1px,transparent 1.3px) 0 0 / 11px 11px;display:flex;justify-content:center;gap:clamp(14px,3vw,26px);padding:0 0 36px}
 .story{display:grid;justify-items:center;gap:6px;width:106px;min-width:0;padding:0}
 .story strong{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;font-weight:500}
-.story .pic{display:grid;place-items:center;width:100%;aspect-ratio:1;border-radius:50%;padding:3px;background:linear-gradient(32deg,#b9cdbd 4%,#8a83bb 38%,#c491bf 76%,#d1aac2 96%)}
-.story img,.story .all{width:100%;height:100%;border:3px solid var(--bg);border-radius:50%;object-fit:cover;display:grid;place-items:center;background:#191620;color:white}
-.story[aria-pressed=true] .pic{background:var(--line)}
+.story .pic{position:relative;isolation:isolate;display:grid;place-items:center;width:100%;aspect-ratio:1;border-radius:50%;overflow:hidden;background:#242a31;--rim:#9ba9b9}
+.story:nth-child(2) .pic{--rim:#d8957c}
+.story:nth-child(3) .pic{--rim:#9897d3}
+.story:nth-child(4) .pic{--rim:#72aab1}
+.story:nth-child(5) .pic{--rim:#c7ad83}
+.story .pic::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;border:1px solid color-mix(in srgb,var(--rim),transparent 45%);box-shadow:inset 0 0 13px 3px color-mix(in srgb,var(--rim),transparent 35%),inset 2px 4px 9px #ffffff54;background:linear-gradient(145deg,#d8e8ed26,transparent 42%,#10121628)}
+.story img,.story .all{width:100%;height:100%;border-radius:50%;object-fit:cover;display:grid;place-items:center;background:#171b20;color:white}
+.story img{filter:blur(1px) saturate(.76);transform:scale(1.045)}
+.story:hover img,.story:focus-visible img{filter:none}
 .story .all svg{width:27px;height:27px}
 .entries{display:grid;gap:13px;width:min(100%,576px);margin-inline:auto}
 .post{min-width:0;border-bottom:1px solid var(--line);padding-bottom:9px;scroll-margin-top:65px}
@@ -55,12 +61,12 @@ h1,h2,p,figure{margin:0}
 .stamp{color:var(--dim);font-size:12px;white-space:nowrap}
 .postphoto{position:relative;background:#191620;aspect-ratio:4/5;overflow:hidden;border-radius:4px}
 .postphoto img{width:100%;height:100%;object-fit:cover;display:block}
-.postphoto.is-veiled img{filter:blur(25px) saturate(.7) brightness(1.25);transform:scale(1.12)}
-.photo-veil{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:11px;width:100%;color:#fff;background:radial-gradient(ellipse at 22% 19%,#c2dfff73,transparent 68%),linear-gradient(145deg,#3a6fbe99,#142456cf);text-shadow:0 1px 10px #1b315f;padding:18px}
+.postphoto.is-veiled{border-radius:24px}.postphoto.is-veiled img{filter:blur(21px) saturate(.65) brightness(.78);transform:scale(1.11)}
+.photo-veil{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:11px;width:100%;color:#fff;background:radial-gradient(ellipse at 52% 40%,#19232b18,#111820a8 85%);box-shadow:inset 0 0 26px #387caf9c,inset 0 0 3px #92c2f09c;text-shadow:0 1px 10px #10161c;padding:18px}
 .photo-veil:focus-visible{outline-offset:-5px}
 .photo-veil svg{width:36px;height:36px;stroke-width:1.4}
 .photo-veil strong{font-size:clamp(18px,4vw,26px);letter-spacing:-.04em}
-.photo-veil span{border:1px solid #e1ebffbf;border-radius:99px;padding:6px 17px;font-size:12px}
+.photo-veil span{border:1px solid #9ac8ef8c;border-radius:99px;padding:7px 18px;font-size:12px;background:#31577766;box-shadow:inset 0 0 10px #589ace59}
 .photo-veil:hover span{background:#ffffff24}
 
 .postbody{padding:7px 14px 0}
