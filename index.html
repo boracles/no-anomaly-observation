@@ -24,42 +24,54 @@ h1,h2,p,figure{margin:0}
 .rail .brand span{display:none}
 .nav{display:grid;gap:18px;margin-top:clamp(15px,20vh,210px);margin-bottom:auto}
 .nav svg,.railfoot svg{width:26px;height:26px}
-.nav button,.railfoot a{display:grid;place-items:center;width:46px;height:46px;border-radius:8px}
+.nav button,.railfoot a{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:#15181e}
 .nav button:hover,.railfoot a:hover{background:var(--surface)}
+.nav .selected{background:#21364d;box-shadow:inset 0 0 13px #527fad7a}
 .nav .selected svg{stroke-width:2.4}
 .nav #home.selected svg{fill:currentColor}
 .nav .label,.railfoot .label{display:none}
 .mobilebar{display:none}
-.shell{padding:20px 24px 64px}
-.layout{display:block;width:min(100%,750px);margin-inline:auto}
+.shell{padding:30px 24px 64px}
+.layout{display:block;width:min(100%,632px);margin-inline:auto}
+body:not(.wall){background-color:#08090b}
+.stream{background:radial-gradient(circle,#a6abc315 1px,transparent 1.25px) 0 0 / 12px 12px}
+.feed-identity{display:flex;justify-content:space-between;align-items:end;padding:0 24px 19px}
+.feed-identity h1{font-size:clamp(35px,6vw,54px);line-height:.98;letter-spacing:-.09em}
+.feed-identity small{display:block;color:#b6bdce;font-size:13px;margin-bottom:7px}
+.feed-identity span{color:var(--dim);font-size:12px}
+.wall .feed-identity{display:none}
+.wall .stream{background:none}
 .stream{min-width:0}
 .feedheader{display:flex;align-items:center;justify-content:space-between;gap:10px;width:min(100%,576px);margin-inline:auto}
 .feedheader:has(.toolbar-title:empty){display:none}
 .toolbar-title{font-weight:700}
 .toolbar-title:empty{display:none}
 .toolbar-title{font-size:12px;color:var(--dim)}
-.stories{background:radial-gradient(ellipse at 50% 18%,#a4b8c112 1px,transparent 1.3px) 0 0 / 11px 11px;display:flex;justify-content:center;gap:clamp(14px,3vw,26px);padding:0 0 36px}
-.story{display:grid;justify-items:center;gap:6px;width:106px;min-width:0;padding:0}
-.story strong{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;font-weight:500}
-.story .pic{position:relative;isolation:isolate;display:grid;place-items:center;width:100%;aspect-ratio:1;border-radius:50%;overflow:hidden;background:#242a31;--rim:#9ba9b9}
-.story:nth-child(2) .pic{--rim:#d8957c}
-.story:nth-child(3) .pic{--rim:#9897d3}
-.story:nth-child(4) .pic{--rim:#72aab1}
-.story:nth-child(5) .pic{--rim:#c7ad83}
-.story .pic::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;border:1px solid color-mix(in srgb,var(--rim),transparent 45%);box-shadow:inset 0 0 13px 3px color-mix(in srgb,var(--rim),transparent 35%),inset 2px 4px 9px #ffffff54;background:linear-gradient(145deg,#d8e8ed26,transparent 42%,#10121628)}
+.stories{display:flex;gap:14px;padding:4px 24px 24px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.story{position:relative;display:grid;flex:0 0 clamp(108px,29vw,142px);aspect-ratio:1;min-width:0;padding:0;border-radius:50%;scroll-snap-align:center;--rim:#bac7e0}
+.story:nth-child(1){--rim:#fba184}
+.story:nth-child(2){--rim:#a5a6ff}
+.story:nth-child(3){--rim:#8dd8d7}
+.story:nth-child(4){--rim:#e9a8d8}
+.story strong{position:absolute;z-index:1;bottom:16%;inset-inline:8%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;font-weight:650;color:white;text-shadow:0 1px 8px #000,0 1px 2px #000}
+.story .pic{position:relative;display:grid;place-items:center;width:100%;height:100%;border-radius:50%;overflow:hidden;background:#222b35}
+.story .pic::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;border:1px solid color-mix(in srgb,var(--rim),transparent 27%);box-shadow:inset 0 0 21px 5px color-mix(in srgb,var(--rim),transparent 24%),inset 4px 6px 18px #ffffff6c;background:linear-gradient(150deg,#f6efda29,transparent 42%,#0709139e)}
 .story img,.story .all{width:100%;height:100%;border-radius:50%;object-fit:cover;display:grid;place-items:center;background:#171b20;color:white}
-.story img{filter:blur(1px) saturate(.76);transform:scale(1.045)}
-.story:hover img,.story:focus-visible img{filter:none}
-.story .all svg{width:27px;height:27px}
-.entries{display:grid;gap:13px;width:min(100%,576px);margin-inline:auto}
-.post{min-width:0;border-bottom:1px solid var(--line);padding-bottom:9px;scroll-margin-top:65px}
-.posthead{display:flex;align-items:center;gap:9px;padding:8px 14px 14px}
+.story img{filter:blur(5px) saturate(.8) contrast(1.13);transform:scale(1.12)}
+.story:hover img,.story:focus-visible img{filter:blur(2px) saturate(.85)}
+.story .all svg{width:29px;height:29px}
+.entries{display:grid;gap:21px;width:min(calc(100% - 24px),600px);margin-inline:auto}
+.post{min-width:0;position:relative;padding:9px 12px 13px;border-radius:34px;scroll-margin-top:22px;--light:#558fd1;background:#101218;box-shadow:inset 0 0 24px color-mix(in srgb,var(--light),transparent 38%),inset 0 1px 2px color-mix(in srgb,var(--light),transparent 19%)}
+.post:nth-child(3n+2){--light:#ae529e;background:#17101d}
+.post:nth-child(3n+3){--light:#7371cc;background:#111224}
+.wall .post{background:transparent;box-shadow:none;border-radius:0;padding:0}
+.posthead{display:flex;align-items:center;gap:9px;padding:7px 9px 11px}
 .avatar{display:block;width:38px;height:38px;flex:0 0 auto;object-fit:cover;border-radius:50%;background:#211c26}
 .handle{display:flex;align-items:baseline;gap:6px;line-height:1.3}
 .posthead strong,.caption strong{font-weight:750}
 .posthead small{display:block;font-size:11px}
 .stamp{color:var(--dim);font-size:12px;white-space:nowrap}
-.postphoto{position:relative;background:#191620;aspect-ratio:4/5;overflow:hidden;border-radius:4px}
+.postphoto{position:relative;background:#191620;aspect-ratio:4/5;overflow:hidden;border-radius:21px}
 .postphoto img{width:100%;height:100%;object-fit:cover;display:block}
 .postphoto.is-veiled{border-radius:24px}.postphoto.is-veiled img{filter:blur(21px) saturate(.65) brightness(.78);transform:scale(1.11)}
 .photo-veil{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:11px;width:100%;color:#fff;background:radial-gradient(ellipse at 52% 40%,#19232b18,#111820a8 85%);box-shadow:inset 0 0 26px #387caf9c,inset 0 0 3px #92c2f09c;text-shadow:0 1px 10px #10161c;padding:18px}
@@ -69,7 +81,7 @@ h1,h2,p,figure{margin:0}
 .photo-veil span{border:1px solid #9ac8ef8c;border-radius:99px;padding:7px 18px;font-size:12px;background:#31577766;box-shadow:inset 0 0 10px #589ace59}
 .photo-veil:hover span{background:#ffffff24}
 
-.postbody{padding:7px 14px 0}
+.postbody{padding:7px 9px 0}
 .actions{display:flex;gap:14px;align-items:center;margin-bottom:3px}
 .actions button{padding:4px 0;display:flex;align-items:center}
 .actions button:hover{color:var(--dim)}
@@ -155,15 +167,20 @@ textarea{width:100%;min-height:64px;resize:vertical}
  .rail{inset:auto 0 0;width:auto;border-top:1px solid var(--line);display:block;padding:3px 12px max(3px,env(safe-area-inset-bottom))}
  .rail .brand,.railfoot{display:none}
  .nav{display:flex;justify-content:space-around;gap:0;margin:0}
- .mobilebar{display:flex;align-items:center;justify-content:space-between;padding:8px 15px;border-bottom:1px solid var(--line)}
- .shell{padding:12px 0 74px}
+ .mobilebar{display:flex;position:absolute;right:19px;top:20px;z-index:1}
+ .mobilebar .brand{display:none}
+ .mobilebar a{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:#181c25}
+ .mobilebar svg{width:20px;height:20px}
+ .shell{padding:22px 0 74px}
  .layout{max-width:470px}
+ .feed-identity{padding:0 17px 15px}
+ .feed-identity span{display:none}
  .feedheader{padding-inline:14px}
- .stories{justify-content:flex-start;gap:9px;padding:0 14px 12px}
- .story{width:74px}
- .story .pic{width:min(61px,100%)}
+ .stories{gap:9px;padding:3px 15px 17px}
+ .story{flex-basis:clamp(98px,29vw,135px)}
  .story strong{font-size:11px}
- .postphoto{border-radius:0;aspect-ratio:1.29}
+ .post{border-radius:28px;padding:7px 9px 12px}
+ .postphoto{border-radius:19px;aspect-ratio:1.29}
  .postphoto.gap-view{aspect-ratio:1}
  .wall .postphoto{aspect-ratio:16/9}
  .toast{bottom:62px}
@@ -203,6 +220,7 @@ textarea{width:100%;min-height:64px;resize:vertical}
 </nav>
 <main class="shell"><div class="layout">
 <section class="stream" aria-label="잔향 피드">
+<div class="feed-identity"><div><small>같은 밤, 다른 장면</small><h1>잔향</h1></div><span>@no.anomaly</span></div>
 <header class="feedheader">
 <span class="toolbar-title" id="view-title"></span>
 </header>
@@ -242,32 +260,32 @@ const views={
  C:{name:'흰 천 바로 옆',tag:'#흰천',image:'stills/c.jpg'}
 };
 const observers=[
- {view:'C',name:'cloth.under',location:'흰 천 옆',avatar:'profiles/cloth.jpg'},
+ {view:'C',name:'cloth.under',location:'골목 입구',avatar:'profiles/cloth.jpg'},
  {view:'A',name:'rooftop_03',location:'골목 위층',avatar:'profiles/rooftop.jpg'},
  {view:'B',name:'drainline',location:'골목 바닥',avatar:'profiles/drainline.jpg'},
- {view:'B',name:'fish.on.shelf',location:'골목 입구',avatar:'profiles/fish.jpg'}
+ {view:'B',name:'fish.on.shelf',location:'가게 앞',avatar:'profiles/fish.jpg'}
 ];
 const [cloth,roof,drain,fish]=observers;
 const nickname='no.anomaly';
 let storyIndex=0;
 const revealedPhotos=new Set();
 const seed=[
- {id:'seed-c',...cloth,gapView:true,image:'stills/alley-gap.jpg',imageAlt:'벽 틈 너머 흰 천 위로 보이는 빗줄기',story:'사진 찍고 집게를 주머니에 넣었는데, 현관 앞에 또 하나 떨어지는 소리가 났다.',storyImage:'stills/clothespin.jpg',ago:'방금 전',
-  text:'빨래 걷으러 내려갔다가 벽 사이로 찍음. 골목 안쪽은 저렇게 쏟아지는데 내가 서 있는 쪽은 바닥도 말라 있었어.',likes:12,
-  comments:[{name:drain.name,text:'반대편 틈에선 천은 안 보이고 가로등 밑에 비만 보였어요.'},{name:roof.name,text:'위에서 보니까 빗줄기가 천 뒤쪽에서 끊겼어요. 같은 데 맞죠?'}]},
- {id:'seed-fish',...fish,image:'stills/milk.jpg',imageAlt:'바나나우유 병과 영수증',story:'영수증 놓고 간 분? 계산대에 둘게요.',storyImage:'stills/milk.jpg',ago:'4분 전',
+ {id:'seed-c',...cloth,gapView:true,tag:'#가로등아래',image:'stills/alley-rain.jpg',imageAlt:'벽 틈 너머 가로등 아래로 쏟아지는 빗줄기',story:'사진 찍고 집게를 주머니에 넣었는데, 현관 앞에 또 하나 떨어지는 소리가 났다.',storyImage:'stills/clothespin.jpg',ago:'방금 전',
+  text:'집에 들어가려다 벽 사이로 찍음. 가로등 아래만 저렇게 쏟아지는데 발밑은 말라 있었어.',likes:12,
+  comments:[{name:drain.name,text:'반대편에선 불빛 바깥까지 비가 오는 것처럼 보였어요.'},{name:roof.name,text:'위에서 보면 빗줄기가 안 보이고 바닥만 젖어 있어요. 같은 데 맞죠?'}]},
+ {id:'seed-fish',...fish,tag:'#가게앞',image:'stills/milk.jpg',imageAlt:'바나나우유 병과 영수증',story:'영수증 놓고 간 분? 계산대에 둘게요.',storyImage:'stills/milk.jpg',ago:'4분 전',
   text:'마감하려는데 가게 앞에 이거 놓여 있었음. 우유는 치웠고 영수증만 계산대에 올려 둘게요.',likes:5,
   comments:[{name:cloth.name,text:'저 아까 그 앞에서 집게 주웠는데 우유는 없었어요.'},{name:fish.name,text:'집게 주운 데가 가게 앞 맞아요? 여기 바닥 계속 말라 있었는데.'}]},
- {id:'seed-a',...roof,gapView:true,image:'stills/curtain-gap.jpg',imageAlt:'위층 창문 커튼 틈 사이로 내려다본 흰 천과 빗줄기',story:'이 우산 아까도 접혀 있었나',storyImage:'stills/umbrella.jpg',ago:'9분 전',
+ {id:'seed-a',...roof,gapView:true,image:'stills/curtain-rain.jpg',imageAlt:'위층 창문 커튼 틈 사이로 내려다본 젖은 노면',story:'이 우산 아까도 접혀 있었나',storyImage:'stills/umbrella.jpg',ago:'9분 전',
   text:'커튼 조금 벌리고 아래 찍었어요. 이쪽 창문은 마른데 가로등 건너편만 비가 쏟아짐. 창문 닫아도 소리는 그대로네.',likes:21,
   comments:[{name:drain.name,text:'저 밑에 있을 땐 창문 쪽에도 빗줄기가 보였어요.'},{name:roof.name,text:'유리에 맺힌 건 닦아 봤는데 바깥쪽이 아니라 방 안쪽이었어요.'}]},
  {id:'seed-patch',...drain,image:'stills/patch.jpg',imageAlt:'가로등 아래 사각형으로 젖은 아스팔트',story:'고양이는 저 선 앞에서 돌아감.',storyImage:'stills/patch.jpg',ago:'17분 전',
   text:'퇴근길에 가로등 밑만 물이 고여 있길래 한 컷. 웅덩이인 줄 알고 피했는데 돌아보니 경계가 거의 네모였음.',likes:8,
   comments:[{name:fish.name,text:'저기 조명 아까 꺼졌어요. 근데 물에 비친 건 한참 켜져 있더라고요.'},{name:cloth.name,text:'저는 안쪽에서 바깥으로 물 흐르는 거 봤어요. 사진에는 그게 안 보이네요.'}]},
- {id:'seed-pin',...cloth,image:'stills/clothespin.jpg',imageAlt:'손에 든 나무 빨래집게',ago:'31분 전',
+ {id:'seed-pin',...cloth,image:'stills/clothespin.jpg',tag:'#빨래집게',imageAlt:'손에 든 나무 빨래집게',ago:'31분 전',
   text:'빨래집게 또 떨어짐. 하나 남겨 놓고 올라왔는데 이건 우리 거랑 색이 좀 다르다.',likes:7,
   comments:[{name:roof.name,text:'방금 위에서 보니 양쪽 다 집게 있어요.'},{name:cloth.name,text:'끝에 남겨 둔 게 하나라니까 ㅋㅋ'}]},
- {id:'seed-b',...drain,ago:'43분 전',
+ {id:'seed-b',...drain,tag:'#접힌우산',image:'stills/umbrella.jpg',imageAlt:'골목 입구에 세워진 접힌 파란 우산',ago:'43분 전',
   text:'이 골목 지나면 3분 아낄 수 있는데 오늘은 그냥 돌아감. 뭐가 떨어지는 소리는 계속 들리는데 맞는 데가 없었다.',likes:9,
   comments:[{name:roof.name,text:'저는 소리는 못 들었고 창문에 물만 튀었어요.'},{name:fish.name,text:'문 열어 놓고 있었는데 딱 한 번 쏟아지는 소리 났음. 문 닫고 나니까 한 번 더 들렸어요.'}]},
  {id:'seed-window',...roof,veiled:true,image:'stills/window.jpg',imageAlt:'창 너머 난간에 걸린 흰 천',ago:'1시간 전',
@@ -325,7 +343,7 @@ function renderStories(){
  const all={view:'all',name:'모두'};
  const accounts=venue?[cloth,roof,drain]:observers;
  $('stories').hidden=mode!=='feed';
- $('stories').replaceChildren(...[all,...accounts].map(({view,name,avatar})=>{
+ $('stories').replaceChildren(...(venue?[all,...accounts]:accounts).map(({view,name,avatar})=>{
   const button=make('button','story');if(venue||view==='all')button.setAttribute('aria-pressed',String(filter===view));
   else button.setAttribute('aria-haspopup','dialog');
   const photo=make('span','pic');
@@ -439,7 +457,7 @@ function postCard(entry){
  };
  buttons.append(like,comments,share,bookmark);
  const caption=make('p','caption');caption.append(make('strong','',name),document.createTextNode(entry.text));
- body.append(buttons,likes,caption,make('p','tags',view.tag+'  #이상없음'));
+ body.append(buttons,likes,caption,make('p','tags',(entry.tag||view.tag)+'  #이상없음'));
  if(replies.length>2&&openedComment!==id){
   const toggle=make('button','reply-toggle','댓글 '+replies.length+'개 모두 보기');
   toggle.onclick=comments.onclick;
