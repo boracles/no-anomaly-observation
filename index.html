@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>잔향 (@no.anomaly) · 이상 없음</title>
 <style>
-:root{color-scheme:light;--ink:#171717;--dim:#626262;--line:#dedddc;--bg:#fff;--accent:#a72a59;--blue:#2459ad;--rail:220px}
+:root{color-scheme:light;--ink:#171717;--dim:#626262;--line:#dedddc;--bg:#fff;--accent:#a72a59;--blue:#2459ad}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
@@ -16,46 +16,44 @@ a{color:inherit;text-decoration:none}
 svg{width:24px;height:24px;display:block;stroke:currentColor;fill:none;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}
 h1,h2,p,figure{margin:0}
 .muted{color:var(--dim)}
-.rail{position:fixed;inset:0 auto 0 0;width:var(--rail);border-right:1px solid var(--line);padding:31px 20px 21px;display:flex;flex-direction:column;gap:34px;background:var(--bg);z-index:2}
-.brand{display:flex;align-items:center;gap:9px;font-size:27px;font-weight:900;letter-spacing:-.085em;width:max-content}
+.rail{position:fixed;inset:0 auto 0 0;width:64px;padding:28px 9px 17px;display:flex;flex-direction:column;align-items:center;background:var(--bg);z-index:2}
+.brand{display:flex;align-items:center;gap:9px;font-size:24px;font-weight:900;letter-spacing:-.085em;width:max-content}
 .brand svg{width:25px;height:25px}
-.nav{display:grid;gap:8px}
-.nav button,.nav a{display:flex;align-items:center;gap:14px;padding:11px 10px;text-align:left;border-radius:8px;white-space:nowrap}
-.nav :is(button,a):hover{background:#f4f2f3}
-.nav .selected{font-weight:800}
+.rail .brand{padding:8px}
+.rail .brand span{display:none}
+.nav{display:grid;gap:18px;margin-top:clamp(15px,20vh,210px);margin-bottom:auto}
+.nav svg,.railfoot svg{width:26px;height:26px}
+.nav button,.railfoot a{display:grid;place-items:center;width:46px;height:46px;border-radius:8px}
+.nav button:hover,.railfoot a:hover{background:#f4f4f4}
 .nav .selected svg{stroke-width:2.4}
-.railfoot{margin-top:auto;padding-left:10px;color:var(--dim);font-size:11px}
+.nav #home.selected svg{fill:currentColor}
+.nav .label,.railfoot .label{display:none}
 .mobilebar{display:none}
-.shell{margin-left:var(--rail);padding:26px 24px 64px}
-.layout{display:grid;grid-template-columns:minmax(0,470px) minmax(0,270px);gap:36px;justify-content:center;align-items:start}
+.shell{padding:20px 24px 64px}
+.layout{display:block;width:min(100%,750px);margin-inline:auto}
 .stream{min-width:0}
-.feedheader{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:10px;gap:10px}
-.tabs{display:flex;gap:20px}
-.tabs button{position:relative;padding:0;color:var(--dim);font-weight:700}
-.tabs button[aria-pressed=true]{color:var(--ink)}
-.tabs button[aria-pressed=true]::after{content:"";position:absolute;inset:auto 0 -11px;height:2px;background:var(--ink)}
+.feedheader{display:flex;align-items:center;justify-content:space-between;gap:10px;width:min(100%,576px);margin-inline:auto}
+.feedheader:has(.toolbar-title:empty){display:none}
+.toolbar-title{font-weight:700}
 .toolbar-title:empty{display:none}
 .toolbar-title{font-size:12px;color:var(--dim)}
-.new-post{display:flex;align-items:center;gap:5px;color:var(--blue);font-weight:700;padding:2px 0}
-.new-post svg{width:19px;height:19px}
-.stories{display:flex;gap:12px;padding:12px 0 10px}
-.story{display:grid;justify-items:center;gap:5px;width:74px;min-width:0;padding:0}
-.story strong{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;font-weight:500}
-.story .pic{display:grid;place-items:center;width:64px;aspect-ratio:1;border-radius:50%;padding:2px;background:linear-gradient(25deg,#e7a567,#bb4168 55%,#614c9a);position:relative}
-.story[aria-pressed=true] .pic{background:var(--ink)}
-.story img,.story .all{width:100%;height:100%;border:2px solid white;border-radius:50%;object-fit:cover;display:grid;place-items:center;background:#191620;color:white}
-.story .all svg{width:25px;height:25px}
-.entries{display:grid;gap:9px}
+.stories{display:flex;justify-content:center;gap:clamp(14px,3vw,26px);padding:0 0 36px}
+.story{display:grid;justify-items:center;gap:6px;width:106px;min-width:0;padding:0}
+.story strong{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;font-weight:500}
+.story .pic{display:grid;place-items:center;width:100%;aspect-ratio:1;border-radius:50%;padding:3px;background:linear-gradient(32deg,#ffbd18 4%,#fa254a 46%,#db00be 89%)}
+.story img,.story .all{width:100%;height:100%;border:3px solid white;border-radius:50%;object-fit:cover;display:grid;place-items:center;background:#191620;color:white}
+.story .all svg{width:27px;height:27px}
+.entries{display:grid;gap:13px;width:min(100%,576px);margin-inline:auto}
 .post{min-width:0;border-bottom:1px solid var(--line);padding-bottom:9px;scroll-margin-top:65px}
-.posthead{display:flex;align-items:center;gap:9px;padding:8px 0 10px}
-.avatar{display:block;width:34px;height:34px;flex:0 0 auto;object-fit:cover;border-radius:50%;background:#211c26}
+.posthead{display:flex;align-items:center;gap:9px;padding:8px 14px 14px}
+.avatar{display:block;width:38px;height:38px;flex:0 0 auto;object-fit:cover;border-radius:50%;background:#211c26}
 .handle{display:flex;align-items:baseline;gap:6px;line-height:1.3}
 .posthead strong,.caption strong{font-weight:750}
 .posthead small{display:block;font-size:11px}
 .stamp{color:var(--dim);font-size:12px;white-space:nowrap}
-.postphoto{background:#191620;aspect-ratio:1.16;overflow:hidden;border-radius:4px}
+.postphoto{background:#191620;aspect-ratio:4/5;overflow:hidden;border-radius:4px}
 .postphoto img{width:100%;height:100%;object-fit:cover;display:block}
-.postbody{padding-top:5px}
+.postbody{padding:7px 14px 0}
 .actions{display:flex;gap:14px;align-items:center;margin-bottom:3px}
 .actions button{padding:4px 0;display:flex;align-items:center}
 .actions button:hover{color:var(--dim)}
@@ -73,19 +71,21 @@ h1,h2,p,figure{margin:0}
 .commentform button{color:var(--blue);font-size:13px;font-weight:700;padding:3px 0}
 .commentform button:disabled{visibility:hidden}
 .empty{padding:30px 10px;text-align:center;color:var(--dim)}
-aside{padding-top:9px}
 .account{display:flex;align-items:center;gap:10px}
-.account .avatar{width:42px;height:42px}
 .account small{display:block;color:var(--dim);font-size:12px}
-.account-mark{display:grid;place-items:center;color:white;background:#201a24}
-.bio{margin:12px 0 22px;font-size:13px}
-aside h2{font-size:13px;color:var(--dim);margin-bottom:12px}
-.people{display:grid;gap:13px}
-#mobile-people{display:none}
+.people{display:grid;gap:13px;width:min(100%,576px);margin:0 auto 16px;padding:12px 14px;border-bottom:1px solid var(--line)}
 .people .avatar{width:33px;height:33px}
 .people button{margin-left:auto;color:var(--blue);padding:6px 0;font-size:12px;font-weight:700}
 .people button[aria-pressed=true]{color:var(--dim)}
-.sidefoot{color:var(--dim);font-size:11px;margin-top:24px}
+.post-options{margin-left:auto}
+.post-options summary{display:grid;place-items:center;cursor:pointer;list-style:none;padding:5px}
+.post-options summary::-webkit-details-marker{display:none}
+.post-options{position:relative}
+.post-options button{position:absolute;z-index:1;right:0;width:max-content;background:white;border:1px solid var(--line);border-radius:8px;box-shadow:0 2px 8px #0002;padding:8px 12px}
+.actions .like{gap:5px}
+.actions .like span{color:var(--ink);font-size:13px;font-weight:700}
+.wall .likes{display:block}
+body:not(.wall) .likes{display:none}
 .story-view{width:min(430px,calc(100% - 20px));background:#111;color:white;border:0;border-radius:12px;overflow:hidden}
 .story-stage{position:relative;display:grid;align-items:end;aspect-ratio:9/15;max-height:calc(100dvh - 20px);isolation:isolate}
 .story-stage::after{content:"";position:absolute;inset:0;background:linear-gradient(#000a,transparent 24%,transparent 65%,#000d);z-index:-1}
@@ -104,10 +104,10 @@ aside h2{font-size:13px;color:var(--dim);margin-bottom:12px}
 .story-note button{display:block;margin-top:8px;padding:0;color:white;text-decoration:underline;text-underline-offset:3px;font-size:12px}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);max-width:calc(100% - 32px);width:max-content;border-radius:8px;background:#252228;color:white;padding:10px 14px;z-index:3}
 .wall{color-scheme:dark;--bg:#101011;--ink:#fff;--dim:#b8b7ba;--line:#424047}
-.wall :is(.rail,aside,.stories,.new-post,.actions,.mobilebar,.tabs,.reply-toggle,.commentform){display:none}
+.wall :is(.rail,.stories,.actions,.mobilebar,.reply-toggle,.commentform,.post-options){display:none}
 .wall .shell{margin:0}
 .wall .layout{display:block;max-width:1440px;margin:auto}
-.wall .entries{grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));margin-top:20px}
+.wall .entries{width:100%;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));margin-top:20px}
 .wall .toolbar-title{font-size:24px;font-weight:750;color:var(--ink)}
 .wall .postphoto{aspect-ratio:16/9}
 .wall .postphoto img{object-fit:contain}
@@ -126,31 +126,26 @@ textarea,input,.ghost{color:var(--ink);background:var(--bg);border:1px solid var
 textarea{width:100%;min-height:64px;resize:vertical}
 .primary{border-radius:7px;padding:7px 17px;background:var(--blue);color:white;font-weight:750}
 .formend{display:flex;justify-content:space-between;align-items:center}
-@media(max-width:1080px){
- :root{--rail:72px}
- .rail{align-items:center;padding-inline:12px}
- .rail .label,.railfoot,.rail .brand span{display:none}
-}
-@media(max-width:850px){
- .layout{grid-template-columns:minmax(0,470px)}
- aside{display:none}
- #mobile-people{display:grid;padding:14px}
+@media(min-width:901px){body:not(.wall) .layout{position:relative;left:-14px}}
+@media(max-height:640px){.nav{margin-top:auto;gap:5px}}
+@media(min-width:601px) and (max-width:900px){
+ .shell{padding-left:80px}
+ .story{width:86px}
 }
 @media(max-width:600px){
- .rail{inset:auto 0 0;width:auto;border:0;border-top:1px solid var(--line);display:block;padding:3px 12px max(3px,env(safe-area-inset-bottom))}
- .rail .brand{display:none}
- .nav{display:flex;justify-content:space-around;gap:0}
- .nav button,.nav a{padding:9px 12px}
+ .rail{inset:auto 0 0;width:auto;border-top:1px solid var(--line);display:block;padding:3px 12px max(3px,env(safe-area-inset-bottom))}
+ .rail .brand,.railfoot{display:none}
+ .nav{display:flex;justify-content:space-around;gap:0;margin:0}
  .mobilebar{display:flex;align-items:center;justify-content:space-between;padding:8px 15px;border-bottom:1px solid var(--line)}
- .mobilebar .brand{font-size:23px}
- .shell{margin:0;padding:12px 0 74px}
- .layout{display:block;max-width:470px;margin:auto}
- .feedheader,.stories,.posthead,.postbody{padding-inline:14px}
- .new-post{display:none}
- .stories{gap:9px}
+ .shell{padding:12px 0 74px}
+ .layout{max-width:470px}
+ .feedheader{padding-inline:14px}
+ .stories{justify-content:flex-start;gap:9px;padding:0 14px 12px}
+ .story{width:74px}
+ .story .pic{width:61px}
+ .story strong{font-size:11px}
  .postphoto{border-radius:0;aspect-ratio:1.29}
  .wall .postphoto{aspect-ratio:16/9}
- .story .pic{width:56px}
  .toast{bottom:62px}
  .wall .shell{padding-inline:12px}
 }
@@ -167,11 +162,13 @@ textarea{width:100%;min-height:64px;resize:vertical}
  <symbol id="i-camera" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
  <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7ZM11 13 22 2"/></symbol>
  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4V3Z"/></symbol>
+ <symbol id="i-people" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20v-2a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v2m1-15a3 3 0 0 1 0 6m2 3a4 4 0 0 1 3 4v2"/></symbol>
+ <symbol id="i-more" viewBox="0 0 24 24"><g stroke="none" fill="currentColor"><circle cx="5" cy="12" r="1.65"/><circle cx="12" cy="12" r="1.65"/><circle cx="19" cy="12" r="1.65"/></g></symbol>
 </svg>
 </template>
 <header class="mobilebar">
 <a class="brand" href="./"><svg aria-hidden="true"><use href="#i-camera"/></svg><span>잔향</span></a>
-<span class="muted">@no.anomaly</span>
+<a href="?wall=1" id="wall-mobile" aria-label="벽면 피드"><svg aria-hidden="true"><use href="#i-wall"/></svg></a>
 </header>
 <nav class="rail" aria-label="주 메뉴">
 <a class="brand" href="./"><svg aria-hidden="true"><use href="#i-camera"/></svg><span>잔향</span></a>
@@ -179,31 +176,19 @@ textarea{width:100%;min-height:64px;resize:vertical}
 <button id="home" class="selected" aria-label="홈"><svg aria-hidden="true"><use href="#i-home"/></svg><span class="label">홈</span></button>
 <button id="open-compose" aria-label="새 게시물"><svg aria-hidden="true"><use href="#i-plus"/></svg><span class="label">새 게시물</span></button>
 <button id="saved-nav" aria-label="저장됨"><svg aria-hidden="true"><use href="#i-bookmark"/></svg><span class="label">저장됨</span></button>
-<a id="wall-link" href="?wall=1" target="_blank" rel="noopener" aria-label="벽면 피드"><svg aria-hidden="true"><use href="#i-wall"/></svg><span class="label">벽면 피드</span></a>
+<button id="following-tab" aria-label="팔로잉" aria-pressed="false"><svg aria-hidden="true"><use href="#i-people"/></svg></button>
 </div>
-<div class="railfoot">《이상 없음》</div>
+<div class="railfoot"><a id="wall-link" href="?wall=1" target="_blank" rel="noopener" aria-label="벽면 피드"><svg aria-hidden="true"><use href="#i-wall"/></svg></a></div>
 </nav>
 <main class="shell"><div class="layout">
 <section class="stream" aria-label="잔향 피드">
 <header class="feedheader">
-<div class="tabs" aria-label="피드 보기"><button id="feed-tab" aria-pressed="true">추천</button><button id="following-tab" aria-pressed="false">팔로잉</button></div>
 <span class="toolbar-title" id="view-title"></span>
-<button class="new-post" id="new-post"><svg aria-hidden="true"><use href="#i-plus"/></svg>새 게시물</button>
 </header>
 <div id="stories" class="stories" aria-label="관측 계정별 게시물"></div>
 <div id="mobile-people" class="people" hidden></div>
 <div id="entries" class="entries"></div>
 </section>
-<aside aria-label="계정">
-<div class="account">
-<span class="avatar account-mark"><svg aria-hidden="true"><use href="#i-camera"/></svg></span>
-<div><strong>no.anomaly</strong><small>잔향 · 이상 없음</small></div>
-</div>
-<p class="bio">골목 안쪽에서만 비가 옵니다.</p>
-<h2>함께 본 사람들</h2>
-<div class="people" id="people"></div>
-<p id="storage-note" class="sidefoot">《이상 없음》 · 전시용 가상 소셜미디어<br>내 게시물과 반응은 이 브라우저에 저장됩니다.</p>
-</aside>
 </div></main>
 <div id="toast" class="toast" role="status" hidden></div>
 <dialog id="story-view" class="story-view" aria-label="스토리">
@@ -223,6 +208,7 @@ textarea{width:100%;min-height:64px;resize:vertical}
 <div class="preview" id="preview">게시할 사진을 고르세요.</div>
 <button class="ghost" type="button" id="capture">이 사진 사용</button>
 <small id="capture-status" class="muted" role="status"></small>
+<small id="storage-note" class="muted">작성한 게시물과 댓글은 이 브라우저에 저장됩니다.</small>
 <label for="report">캡션</label><textarea id="report" maxlength="100" placeholder="이 장면에서 무엇을 봤나요?" required></textarea>
 <div class="formend"><small class="muted" id="count">0 / 100</small><button class="primary" id="publish" disabled>게시</button></div>
 </form>
@@ -266,32 +252,31 @@ function notify(message){
 }
 function setFilter(value,nextMode='feed'){
  filter=value;mode=nextMode;
- $('feed-tab').setAttribute('aria-pressed',String(mode==='feed'));
  $('following-tab').setAttribute('aria-pressed',String(mode==='following'));
- $('home').classList.toggle('selected',mode!=='saved');
+ $('home').classList.toggle('selected',mode==='feed');
+ $('following-tab').classList.toggle('selected',mode==='following');
  $('saved-nav').classList.toggle('selected',mode==='saved');
- $('view-title').textContent=mode==='saved'?'저장한 게시물':assigned?'카메라 '+assigned:'';
+ $('view-title').textContent=mode==='saved'?'저장한 게시물':mode==='following'?'팔로잉':assigned?'카메라 '+assigned:'';
  $('mobile-people').hidden=mode!=='following';
  renderStories();renderFeed();
 }
 function renderPeople(){
- for(const target of ['people','mobile-people']){
-  $(target).replaceChildren(...observers.map(person=>{
-   const row=make('div','account'),avatar=image(views[person.view].image,'');
-   avatar.className='avatar';
-   const by=make('div');by.append(make('strong','',person.name),make('small','',person.location));
-   const followed=following.includes(person.name),button=make('button','',followed?'팔로잉':'팔로우');
-   button.setAttribute('aria-pressed',String(followed));
-   button.setAttribute('aria-label',person.name+' 팔로우');
-   button.onclick=()=>{
-    following=followed?following.filter(name=>name!==person.name):[...following,person.name];
-    save(followKey,following);
-    renderPeople();renderFeed();
-    $(target).querySelectorAll('button')[observers.indexOf(person)].focus();
-   };
-   row.append(avatar,by,button);return row;
-  }));
- }
+ const target='mobile-people';
+ $(target).replaceChildren(...observers.map(person=>{
+  const row=make('div','account'),avatar=image(views[person.view].image,'');
+  avatar.className='avatar';
+  const by=make('div');by.append(make('strong','',person.name),make('small','',person.location));
+  const followed=following.includes(person.name),button=make('button','',followed?'팔로잉':'팔로우');
+  button.setAttribute('aria-pressed',String(followed));
+  button.setAttribute('aria-label',person.name+' 팔로우');
+  button.onclick=()=>{
+   following=followed?following.filter(name=>name!==person.name):[...following,person.name];
+   save(followKey,following);
+   renderPeople();renderFeed();
+   $(target).querySelectorAll('button')[observers.indexOf(person)].focus();
+  };
+  row.append(avatar,by,button);return row;
+ }));
 }
 function renderStories(){
  const all={view:'all',name:'모두'};
@@ -354,15 +339,23 @@ function postCard(entry){
  handle.append(make('strong','',name),make('span','stamp','· '+(entry.ago||'방금 전')));
  by.append(handle,make('small','',entry.location||'골목'));
  const avatar=image(view.image,'');avatar.className='avatar';
- head.append(avatar,by);
+ const options=make('details','post-options'),summary=make('summary','');
+ summary.setAttribute('aria-label','게시물 옵션');summary.append(icon('more'));
+ const copy=make('button','','게시물 링크 복사');
+ copy.onclick=()=>{options.open=false;sharePost(id)};
+ options.append(summary,copy);
+ head.append(avatar,by,options);
  const photo=make('figure','postphoto');
  photo.append(image(entry.image||view.image,view.name));
  const body=make('div','postbody'),buttons=make('div','actions');
  const like=make('button','like'),likes=make('strong','likes');
- like.append(icon('heart'));like.setAttribute('aria-label','좋아요');
+ const likeCount=make('span','');
+ like.append(icon('heart'),likeCount);like.setAttribute('aria-label','좋아요');
  function updateLike(){
   like.setAttribute('aria-pressed',String(Boolean(state.liked)));
-  likes.textContent='좋아요 '+((entry.likes||0)+(state.liked?1:0))+'개';
+  const count=(entry.likes||0)+(state.liked?1:0);
+  likeCount.textContent=String(count);
+  likes.textContent='좋아요 '+count+'개';
  }
  like.onclick=()=>{state.liked=!state.liked;actions[id]=state;save(actionKey,actions);updateLike()};
  updateLike();
@@ -445,9 +438,9 @@ for(const [key,view] of Object.entries(views)){
  const button=make('button','ghost',venue?'카메라 '+key:view.name);button.type='button';button.dataset.view=key;button.onclick=()=>pickView(key);$('choices').append(button);
 }
 $('capture').onclick=()=>{capture={view:selected};$('capture-status').textContent='사진을 선택했습니다.';$('report').focus();updateCompose()};
-$('new-post').onclick=$('open-compose').onclick=openComposer;
+$('open-compose').onclick=openComposer;
 $('close-compose').onclick=()=>$('composer').close();
-$('home').onclick=$('feed-tab').onclick=()=>{setFilter('all');window.scrollTo(0,0)};
+$('home').onclick=()=>{setFilter('all');window.scrollTo(0,0)};
 $('following-tab').onclick=()=>setFilter('all','following');
 $('saved-nav').onclick=()=>{setFilter('all','saved');window.scrollTo(0,0)};
 $('report').oninput=updateCompose;
@@ -491,12 +484,12 @@ async function refreshVenue(){
  }catch{if(!wall)$('capture-status').textContent='전시장 서버 연결을 확인하세요.'}
 }
 if(venue){
- $('wall-link').href='?venue=1&wall=1';
- $('storage-note').textContent='전시장 내부망 · 관측기별 촬영함과 공용 SNS';
+ $('storage-note').hidden=true;
+ $('wall-link').href=$('wall-mobile').href='?venue=1&wall=1';
  $('choices').hidden=$('capture').hidden=true;$('inbox').hidden=false;
  preview(null,'관측기 '+(assigned||'A·B·C')+'의 촬영을 기다리는 중');
  if(assigned)$('view-title').textContent='관측기 '+assigned;
- else{$('open-compose').hidden=$('new-post').hidden=true}
+ else{$('open-compose').hidden=true}
  refreshVenue();setInterval(refreshVenue,1500);
 }else{pickView(selected)}
 if(wall){document.body.classList.add('wall');$('view-title').textContent='잔향 · 현장 피드'}
