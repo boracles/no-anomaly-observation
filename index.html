@@ -39,6 +39,11 @@ h1,h2,p,figure{margin:0}
 .shell{padding:30px 24px 64px}
 .layout{display:block;width:min(100%,632px);margin-inline:auto}
 body:not(.wall){background-color:#08090b}
+body:not(.wall)::before{
+ content:"";position:fixed;inset:0;z-index:1;pointer-events:none;
+ background:linear-gradient(to bottom,#000 0%,#0000 clamp(56px,12vh,120px),#0000 calc(100% - clamp(68px,14vh,144px)),#000 100%);
+}
+
 .stream{min-width:0}
 .feed-identity{display:flex;justify-content:space-between;align-items:end;padding:0 24px 19px}
 .feed-identity h1{font-size:clamp(35px,6vw,54px);line-height:.98;letter-spacing:-.09em}
