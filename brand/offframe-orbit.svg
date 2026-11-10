@@ -2,11 +2,11 @@
   <title>offframe</title>
   <defs>
     <linearGradient id="orbit" x1="9" y1="8" x2="36" y2="41" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#8bd7ce" stop-opacity="0"/>
-      <stop offset=".37" stop-color="#8bd7ce" stop-opacity=".58"/>
-      <stop offset=".65" stop-color="#a1beff"/>
-      <stop offset=".85" stop-color="#9c8bea" stop-opacity=".82"/>
-      <stop offset="1" stop-color="#6d65ab" stop-opacity="0"/>
+      <stop stop-color="#5e88ee" stop-opacity="0"/>
+      <stop offset=".37" stop-color="#5e88ee" stop-opacity=".58"/>
+      <stop offset=".65" stop-color="#d9e7ff"/>
+      <stop offset=".85" stop-color="#527bff" stop-opacity=".82"/>
+      <stop offset="1" stop-color="#1636a1" stop-opacity="0"/>
     </linearGradient>
     <filter id="diffusion" x="-40%" y="-40%" width="180%" height="180%">
       <feGaussianBlur stdDeviation="2.15"/>

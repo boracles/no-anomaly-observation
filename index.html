@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#101112">
-<link rel="icon" href="brand/offframe-orbit.svg" type="image/svg+xml">
+<link rel="icon" href="brand/offframe-orbit.svg?v=cobalt" type="image/svg+xml">
 <title>OFFFRAME</title>
 <style>
-:root{color-scheme:dark;--ink:#f1eef4;--dim:#b3aebc;--line:#272c32;--bg:#101112;--surface:#1a1e22;--accent:#c8b7f0;--blue:#c0cbf7}
+:root{color-scheme:dark;--ink:#f0f2f5;--dim:#afb4c0;--line:#222630;--bg:#101112;--surface:#1a1e22;--accent:#94afff;--blue:#becdff}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
@@ -59,10 +59,10 @@ body:not(.wall)::before{
 .toolbar-title{font-size:12px;color:var(--dim)}
 .stories{display:flex;gap:14px;padding:4px 24px 24px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .story{position:relative;display:grid;flex:0 0 clamp(108px,29vw,142px);aspect-ratio:1;min-width:0;padding:0;border-radius:50%;scroll-snap-align:center;--rim:#bac7e0}
-.story:nth-child(1){--rim:#bfb7ff;--wash:#b688de70;--wash-two:#9bd0b640}
-.story:nth-child(2){--rim:#889cff;--wash:#8291ff7a;--wash-two:#cbb5ee40}
-.story:nth-child(3){--rim:#a4cdb2;--wash:#8dc69972;--wash-two:#8998ff45}
-.story:nth-child(4){--rim:#c9b4ed;--wash:#b29ada72;--wash-two:#b8d4a840}
+.story:nth-child(1){--rim:#466dff;--wash:#1f4eea8c;--wash-two:#e7effc63}
+.story:nth-child(2){--rim:#9bb9ff;--wash:#1546cc7c;--wash-two:#eff5ff59}
+.story:nth-child(3){--rim:#658dff;--wash:#315cef72;--wash-two:#e9f1fa5a}
+.story:nth-child(4){--rim:#6287f0;--wash:#1642c378;--wash-two:#e8effb5d}
 .story strong{position:absolute;z-index:1;bottom:16%;inset-inline:8%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;font-weight:650;color:white;text-shadow:0 1px 8px #000,0 1px 2px #000}
 .story .pic{position:relative;display:grid;place-items:center;width:100%;height:100%;border-radius:50%;overflow:hidden;background:#222b35}
 .story .pic::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;border:1px solid color-mix(in srgb,var(--rim),transparent 27%);box-shadow:inset 0 0 21px 5px color-mix(in srgb,var(--rim),transparent 24%),inset 4px 6px 18px #ffffff6c;background:radial-gradient(ellipse at 17% 62%,var(--wash,transparent),transparent 58%),radial-gradient(ellipse at 77% 21%,var(--wash-two,transparent),transparent 56%),linear-gradient(150deg,#dae6fa35,transparent 44%,#0709139e)}
@@ -207,11 +207,11 @@ textarea{width:100%;min-height:64px;resize:vertical}
 </svg>
 </template>
 <header class="mobilebar">
-<a class="brand" href="./" aria-label="OFFFRAME home"><img class="brand-icon" src="brand/offframe-orbit.svg" alt=""><span>OFFFRAME</span></a>
+<a class="brand" href="./" aria-label="OFFFRAME home"><img class="brand-icon" src="brand/offframe-orbit.svg?v=cobalt" alt=""><span>OFFFRAME</span></a>
 <a href="?wall=1" id="wall-mobile" aria-label="Exhibition feed"><svg aria-hidden="true"><use href="#i-wall"/></svg></a>
 </header>
 <nav class="rail" aria-label="Main navigation">
-<a class="brand" href="./" aria-label="OFFFRAME home"><img class="brand-icon" src="brand/offframe-orbit.svg" alt=""><span>OFFFRAME</span></a>
+<a class="brand" href="./" aria-label="OFFFRAME home"><img class="brand-icon" src="brand/offframe-orbit.svg?v=cobalt" alt=""><span>OFFFRAME</span></a>
 <div class="nav">
 <button id="home" class="selected" aria-label="Home"><svg aria-hidden="true"><use href="#i-home"/></svg><span class="label">Home</span></button>
 <button id="open-compose" aria-label="New post"><svg aria-hidden="true"><use href="#i-compose"/></svg><span class="label">New post</span></button>
@@ -222,7 +222,7 @@ textarea{width:100%;min-height:64px;resize:vertical}
 </nav>
 <main class="shell"><div class="layout">
 <section class="stream" aria-label="OFFFRAME feed">
-<div class="feed-identity"><div><small>Same night. Different views.</small><h1><img class="brand-icon" src="brand/offframe-orbit.svg" alt=""><img class="wordmark" src="brand/offframe.svg?v=prism" alt="OFFFRAME"></h1></div><span>@offframe</span></div>
+<div class="feed-identity"><div><small>Same night. Different views.</small><h1><img class="brand-icon" src="brand/offframe-orbit.svg?v=cobalt" alt=""><img class="wordmark" src="brand/offframe.svg?v=cobalt" alt="OFFFRAME"></h1></div><span>@offframe</span></div>
 <header class="feedheader">
 <span class="toolbar-title" id="view-title"></span>
 </header>
@@ -305,7 +305,7 @@ let filter='all',mode='feed',selected=assigned||'A',capture=null,inboxKey='',bus
 function save(key,value){try{localStorage.setItem(key,JSON.stringify(value));return true}catch{return false}}
 function make(tag,cls,text){const node=document.createElement(tag);if(cls)node.className=cls;if(text!==undefined)node.textContent=text;return node}
 function image(url,alt){const node=new Image();node.src=url;node.alt=alt;return node}
-function brandIcon(){const mark=image('brand/offframe-orbit.svg','');mark.className='brand-icon';return mark}
+function brandIcon(){const mark=image('brand/offframe-orbit.svg?v=cobalt','');mark.className='brand-icon';return mark}
 function icon(id){const node=document.createElementNS('http://www.w3.org/2000/svg','svg');node.setAttribute('aria-hidden','true');const use=document.createElementNS(node.namespaceURI,'use');use.setAttribute('href','#i-'+id);node.append(use);return node}
 function notify(message){
  $('toast').textContent=message;
