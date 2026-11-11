@@ -63,6 +63,8 @@ body:not(.wall)::before{
 .story:nth-child(2){--rim:#9bb9ff;--wash:#1546cc7c;--wash-two:#eff5ff59}
 .story:nth-child(3){--rim:#658dff;--wash:#315cef72;--wash-two:#e9f1fa5a}
 .story:nth-child(4){--rim:#6287f0;--wash:#1642c378;--wash-two:#e8effb5d}
+.stories .wide-story{display:none}
+.story picture{display:block;width:100%;height:100%}
 .story strong{position:absolute;z-index:1;bottom:16%;inset-inline:8%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;font-weight:650;color:white;text-shadow:0 1px 8px #000,0 1px 2px #000}
 .story .pic{position:relative;display:grid;place-items:center;width:100%;height:100%;border-radius:50%;overflow:hidden;background:#222b35}
 .story .pic::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;border:1px solid color-mix(in srgb,var(--rim),transparent 27%);box-shadow:inset 0 0 21px 5px color-mix(in srgb,var(--rim),transparent 24%),inset 4px 6px 18px #ffffff6c;background:radial-gradient(ellipse at 17% 62%,var(--wash,transparent),transparent 58%),radial-gradient(ellipse at 77% 21%,var(--wash-two,transparent),transparent 56%),linear-gradient(150deg,#dae6fa35,transparent 44%,#0709139e)}
@@ -197,6 +199,14 @@ textarea{width:100%;min-height:64px;resize:vertical}
  body:not(.wall) .feedheader{width:100%}
  body:not(.wall) .stories{display:flex;padding-inline:0}
  body:not(.wall) .story{flex:0 0 clamp(78px,10vw,110px)}
+ body:not(.wall) .stories.photo-stories{
+  display:grid;
+  grid-template-columns:repeat(9,minmax(0,1fr));
+  gap:clamp(5px,1vw,12px);
+ }
+ .photo-stories .story{width:100%}
+ .photo-stories .wide-story{display:grid}
+
  body:not(.wall) .entries{
   --feed-columns:2;
   --card-gap:16px;
@@ -219,6 +229,9 @@ textarea{width:100%;min-height:64px;resize:vertical}
  }
  body:not(.wall) .postphoto{aspect-ratio:auto;border-radius:0}
  body:not(.wall) .postphoto img{height:auto;aspect-ratio:auto 4/5}
+}
+@media(min-width:601px) and (max-width:900px){
+ .photo-stories .story strong{display:none}
 }
 @media(min-width:1050px){
  body:not(.wall) .entries{--feed-columns:3;--card-gap:20px}
@@ -333,6 +346,8 @@ const seed=[
   comments:[{name:cloth.name,text:'몇 층 계단이에요?'},{name:fish.name,text:'1층이랑 2층 사이'},{name:roof.name,text:'저 발자국 아래로 향한 거 같은데'},{name:drain.name,text:'밑창 무늬 우리 건물 경비실 앞에도 있어요'},{name:fish.name,text:'아침에 다시 보니까 다 말랐더라고요'}]}
 ];
 const stories=observers.map(person=>seed.find(entry=>entry.name===person.name&&entry.story));
+const wideStories=[...stories,...seed.filter(entry=>!entry.story)];
+let openStories=stories;
 const params=new URLSearchParams(location.search);
 const venue=params.get('venue')==='1', wall=params.has('wall');
 const assigned=Object.hasOwn(views,params.get('station'))?params.get('station'):null;
@@ -382,44 +397,60 @@ function renderPeople(){
 }
 function renderStories(){
  const all={view:'all',name:'All'};
- const accounts=venue?[cloth,roof,drain]:observers;
- $('stories').hidden=mode!=='feed';
- $('stories').replaceChildren(...(venue?[all,...accounts]:accounts).map(({view,name,avatar})=>{
-  const button=make('button','story');if(venue||view==='all')button.setAttribute('aria-pressed',String(filter===view));
-  else button.setAttribute('aria-haspopup','dialog');
+ const items=venue?[all,cloth,roof,drain]:wideStories;
+ const strip=$('stories');
+ strip.hidden=mode!=='feed';
+ strip.classList.toggle('photo-stories',!venue);
+ strip.replaceChildren(...items.map((entry,index)=>{
+  const {view,name,avatar,storyImage,image:postImage}=entry;
+  const extra=!venue&&index>=stories.length;
+  const button=make('button',extra?'story wide-story':'story');
+  if(venue)button.setAttribute('aria-pressed',String(filter===view));
+  else{
+   button.setAttribute('aria-haspopup','dialog');
+   button.setAttribute('aria-label',extra?`${name} · ${entry.location} · ${entry.ago}`:name+' story');
+  }
   const photo=make('span','pic');
   if(view==='all'){
    const mark=make('span','all');mark.append(brandIcon());photo.append(mark);
-  }else photo.append(image(avatar,''));
+  }else if(venue||extra){
+   photo.append(image(extra?postImage:avatar,''));
+  }else{
+   const picture=make('picture'),source=make('source');
+   source.media=wideFeed.media;
+   source.srcset=storyImage;
+   picture.append(source,image(avatar,''));
+   photo.append(picture);
+  }
   button.append(photo,make('strong','',name));
   button.onclick=()=>{
-   if(view==='all'||venue){setFilter(view);$('stories').querySelector('[aria-pressed="true"]').focus();return}
-   showStory(stories.findIndex(entry=>entry.name===name));$('story-view').showModal();
+   if(venue){setFilter(view);strip.querySelector('[aria-pressed="true"]').focus();return}
+   openStories=wideFeed.matches?wideStories:stories;
+   showStory(index);$('story-view').showModal();
   };
-  if(view!=='all'&&!venue)button.setAttribute('aria-label',name+' story');
   return button;
  }));
 }
 function showStory(index){
- if(index<0||index>=stories.length){$('story-view').close();return}
+ if(index<0||index>=openStories.length){$('story-view').close();return}
  storyIndex=index;
- const entry=stories[index];
- $('story-image').src=entry.storyImage;
+ const entry=openStories[index];
+ $('story-image').src=entry.storyImage||entry.image;
  $('story-avatar').src=entry.avatar;
  $('story-name').textContent=entry.name;
  $('story-time').textContent='· '+entry.ago;
- $('story-caption').textContent=entry.story;
+ $('story-caption').textContent=entry.story||entry.text;
  $('story-prev').hidden=index===0;
- $('story-next').textContent=index===stories.length-1?'×':'›';
- $('story-next').setAttribute('aria-label',index===stories.length-1?'Close story':'Next story');
- $('story-progress').replaceChildren(...stories.map((_,i)=>make('span',i<=index?'seen':'')));
+ $('story-next').textContent=index===openStories.length-1?'×':'›';
+ $('story-next').setAttribute('aria-label',index===openStories.length-1?'Close story':'Next story');
+ $('story-progress').replaceChildren(...openStories.map((_,i)=>make('span',i<=index?'seen':'')));
 }
 $('story-close').onclick=()=>$('story-view').close();
 $('story-prev').onclick=()=>showStory(storyIndex-1);
 $('story-next').onclick=()=>showStory(storyIndex+1);
 $('story-post').onclick=()=>{
  $('story-view').close();
- $(`post-${stories[storyIndex].id}`)?.scrollIntoView({block:'start'});
+ $(`post-${openStories[storyIndex].id}`)?.scrollIntoView({block:'start'});
 };
 $('story-view').addEventListener('keydown',event=>{
  if(event.key==='ArrowRight')showStory(storyIndex+1);
