@@ -190,6 +190,39 @@ textarea{width:100%;min-height:64px;resize:vertical}
  .toast{bottom:62px}
  .wall .shell{padding-inline:12px}
 }
+@media(min-width:601px){
+ body:not(.wall) .shell{padding-left:84px}
+ body:not(.wall) .layout{width:min(100%,1320px);left:auto}
+ body:not(.wall) .feed-identity{padding-inline:0}
+ body:not(.wall) .feedheader{width:100%}
+ body:not(.wall) .stories{display:flex;padding-inline:0}
+ body:not(.wall) .story{flex:0 0 clamp(78px,10vw,110px)}
+ body:not(.wall) .entries{
+  --feed-columns:2;
+  --card-gap:16px;
+  width:100%;
+  grid-template-columns:repeat(var(--feed-columns),minmax(0,1fr));
+  gap:var(--card-gap);
+ }
+ body:not(.wall) .entries.masonry{grid-auto-rows:1px;row-gap:0}
+ body:not(.wall) .masonry > .post{
+  align-self:start;
+  grid-column:var(--post-column);
+  grid-row:var(--post-row) / span var(--post-span);
+ }
+ body:not(.wall) .entries > .empty{grid-column:1/-1}
+ body:not(.wall) .post{
+  background:#12151b;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding-bottom:10px;
+ }
+ body:not(.wall) .postphoto{aspect-ratio:auto;border-radius:0}
+ body:not(.wall) .postphoto img{height:auto;aspect-ratio:auto 4/5}
+}
+@media(min-width:1050px){
+ body:not(.wall) .entries{--feed-columns:3;--card-gap:20px}
+}
 </style>
 </head>
 <body>
@@ -476,6 +509,33 @@ function postCard(entry){
  }
  article.append(head,photo,body);return article;
 }
+const wideFeed=matchMedia('(min-width:601px)');
+const entries=$('entries');
+function layoutFeed(){
+ const cards=[...entries.children].filter(node=>node.classList.contains('post'));
+ const masonry=!wall&&wideFeed.matches&&cards.length>0;
+ entries.classList.toggle('masonry',masonry);
+ if(!masonry)return;
+ const style=getComputedStyle(entries);
+ const gap=parseFloat(style.getPropertyValue('--card-gap'));
+ const columnEnds=Array(Number(style.getPropertyValue('--feed-columns'))).fill(1);
+ cards.forEach((card,index)=>{
+  if(Number(card.style.getPropertyValue('--post-column'))>columnEnds.length){
+   card.style.setProperty('--post-column',index%columnEnds.length+1);
+  }
+ });
+ // Pack into the shortest column while keeping the original DOM and tab order.
+ const heights=cards.map(card=>Math.ceil(card.getBoundingClientRect().height));
+ cards.forEach((card,index)=>{
+  const column=columnEnds.indexOf(Math.min(...columnEnds));
+  card.style.setProperty('--post-column',column+1);
+  card.style.setProperty('--post-row',columnEnds[column]);
+  card.style.setProperty('--post-span',Math.max(1,heights[index]));
+  columnEnds[column]+=heights[index]+gap;
+ });
+}
+const feedObserver=new ResizeObserver(layoutFeed);
+wideFeed.addEventListener('change',layoutFeed);
 function renderFeed(){
  const rows=(venue?reports:[...reports,...seed]).filter(entry=>{
   if(!views[entry.view])return false;
@@ -484,7 +544,15 @@ function renderFeed(){
   return filter==='all'||entry.view===filter;
  });
  const message=mode==='saved'?'No saved posts yet.':mode==='following'?'Follow someone to see their posts here.':'No posts yet.';
- $('entries').replaceChildren(...(rows.length?rows.map(postCard):[make('p','empty',message)]));
+ const cards=rows.map(postCard);
+ feedObserver.disconnect();
+ entries.classList.remove('masonry');
+ entries.replaceChildren(...(cards.length?cards:[make('p','empty',message)]));
+ layoutFeed();
+ if(!wall){
+  feedObserver.observe(entries);
+  cards.forEach(card=>feedObserver.observe(card));
+ }
 }
 function showLinkedPost(){
  const id=location.hash.slice(1);
